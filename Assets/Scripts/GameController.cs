@@ -4,8 +4,10 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class GameController : SingletonMonoBehaviour<GameController>
 {
+	private GameManager m_gameManager;
+
 	// タップした時
 	private Action m_onTapCallback;
 
@@ -31,8 +33,9 @@ public class GameController : MonoBehaviour
 		onCreate(controller);
 	}
 
-	public void Setup()
+	public void Setup(GameManager gameManager)
 	{
+		m_gameManager = gameManager;
 	}
 
 	/// <summary>
@@ -41,6 +44,22 @@ public class GameController : MonoBehaviour
 	public void SetCallback(Action onTapCallback)
 	{
 		m_onTapCallback = onTapCallback;
+	}
+
+	/// <summary>
+	/// 敵をセット
+	/// </summary>
+	public void SetEnemy(Enemy enemy)
+	{
+		m_gameManager.Enemy = enemy;
+	}
+
+	/// <summary>
+	/// 敵を取得
+	/// </summary>
+	public Enemy GetEnemy()
+	{
+		return m_gameManager.Enemy;
 	}
 
 	/// <summary>

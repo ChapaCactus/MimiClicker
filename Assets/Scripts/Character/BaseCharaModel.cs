@@ -6,6 +6,9 @@ using UnityEngine;
 
 public abstract class BaseCharaModel : MonoBehaviour
 {
+	// アイテムドロップの開始点
+	[SerializeField] private Transform m_itemDropStartPos;
+
 	// Master参照用
 	public string ID { get; private set; }
 
@@ -14,7 +17,7 @@ public abstract class BaseCharaModel : MonoBehaviour
 	/// </summary>
 	public void DropGold(Action onGoldDied)
 	{
-		var goldObject = GoldObject.Create(transform);
+		var goldObject = GoldObject.Create(m_itemDropStartPos);
 		goldObject.Setup(4.0f, () =>
 		{
 			onGoldDied();
