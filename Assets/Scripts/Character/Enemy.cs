@@ -14,6 +14,7 @@ public class Enemy : BaseCharaModel
 		Pop,// 出現した
 		MoveEnd,// 移動完了時
 		Think,// 思考中
+		Opening,// 物色中
 		Battle,// 戦闘中
 		Away// 去る
 	}
@@ -21,6 +22,24 @@ public class Enemy : BaseCharaModel
 	private State m_currentState = State.None;
 
 	private Action m_onEndMove;
+
+	private float m_attackTimer = 0;
+
+	private const float ATTACK_TIMER_DEFAULT = 2;
+
+	private void Update()
+	{
+		if (m_currentState == State.Opening)
+		{
+			m_attackTimer -= Time.deltaTime;
+
+			if (m_attackTimer <= 0)
+			{
+				m_attackTimer = ATTACK_TIMER_DEFAULT;
+				Attack();
+			}
+		}
+	}
 
 	public void Setup(Action onEndMove)
 	{
@@ -34,9 +53,18 @@ public class Enemy : BaseCharaModel
 				 .SetEase(Ease.Linear)
 				 .OnComplete(() =>
 				 {
-					 m_onEndMove();
 					 ChangeState(State.MoveEnd);
 				 });
+	}
+
+	public void StartOpening()
+	{
+		ChangeState(State.Opening);
+	}
+
+	private void Attack()
+	{
+		Debug.Log("Attack!!");
 	}
 
 	private void ChangeState(State nextState)
@@ -45,12 +73,12 @@ public class Enemy : BaseCharaModel
 		{
 			m_currentState = nextState;
 
-			if(m_currentState == State.MoveEnd)
+			if (m_currentState == State.MoveEnd)
 			{
 				// 移動が終わった時
 				var screenPos = Utilities.GetScreenPosition(transform.position);
 				var fukidashi = Fukidashi.Create();
-				fukidashi.Setup("!", () => { Debug.Log("吹き出しアニメーション終わり！"); });
+				fukidashi.Setup("!", () => m_onEndMove());
 				fukidashi.Move(screenPos + new Vector2(0, 25), 15f);
 			}
 		}

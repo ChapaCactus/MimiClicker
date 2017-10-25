@@ -42,7 +42,10 @@ public class EnemySpawner : MonoBehaviour
 		var go = Instantiate(prefab, transform);
 		var enemy = go.GetComponent<Enemy>();
 
-		enemy.Setup(() => {});
+		enemy.Setup(() => {
+			// 移動完了時
+			enemy.StartOpening();
+		});
 		enemy.Move(m_enemySpawnPos.position, m_enemyGoalPos.position);
 
 		GameController.I.SetEnemy(enemy);

@@ -84,15 +84,15 @@ public class GameManager : MonoBehaviour
 	/// </summary>
 	private void OnTap()
 	{
-		m_mainMimic.DropGold(GainGold);
+		m_mainMimic.ChargeGold((charge) => GainGold(charge));
 	}
 
 	/// <summary>
 	/// ゴールド取得
 	/// </summary>
-	private void GainGold()
+	private void GainGold(int gain)
 	{
-		GlobalGameData.GainGold(1, (gold) => { m_uiManager.UpdateGoldText(gold); });
+		GlobalGameData.GainGold(gain, (gold) => { m_uiManager.UpdateGoldText(gold); });
 	}
 
 	private void UpdateUIContents()

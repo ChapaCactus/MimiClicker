@@ -56,6 +56,8 @@ public static class GlobalGameData
 	public static void GainGold(int gain, Action<int> onGainGold)
 	{
 		Gold += gain;
+		if (Gold < 0) Gold = 0;
+
 		TotalGold += gain;
 
 		onGainGold(Gold);
