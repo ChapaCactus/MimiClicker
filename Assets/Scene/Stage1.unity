@@ -5092,7 +5092,7 @@ GameObject:
   - component: {fileID: 765695120}
   - component: {fileID: 765695119}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: UICamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6685,6 +6685,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb7b839b9ee264a9797dcc63049f7b22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_mainCanvasRect: {fileID: 311072231}
+  m_mainCamera: {fileID: 1734348776}
+  m_uiCamera: {fileID: 765695120}
   m_goldText: {fileID: 1396137165}
   m_abilityPanel: {fileID: 633647078}
   m_trainingPanel: {fileID: 1927797519}
@@ -6703,7 +6706,7 @@ Transform:
   - {fileID: 765695117}
   - {fileID: 311072231}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1042988557
 MonoBehaviour:
@@ -7215,7 +7218,7 @@ Transform:
   - {fileID: 1971685870}
   - {fileID: 657704813}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1192493212
 MonoBehaviour:

@@ -20,6 +20,10 @@ public class UIManager : MonoBehaviour
 		Map
 	}
 
+	// カメラ系
+	[SerializeField] private RectTransform m_mainCanvasRect;
+	[SerializeField] private Camera m_mainCamera;
+	[SerializeField] private Camera m_uiCamera;
 	// 所持金表示
 	[SerializeField] private Text m_goldText;
 
@@ -87,5 +91,20 @@ public class UIManager : MonoBehaviour
 
 			m_currentPanelType = MainPanelType.Off;
 		}
+	}
+
+	public RectTransform GetMainCanvasRect()
+	{
+		return m_mainCanvasRect;
+	}
+
+	public Camera GetMainCamera()
+	{
+		return m_mainCamera;
+	}
+
+	public Camera GetUICamera()
+	{
+		return m_uiCamera;
 	}
 }

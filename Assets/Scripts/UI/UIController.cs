@@ -12,6 +12,21 @@ public class UIController : SingletonMonoBehaviour<UIController>
 		m_uiManager = GetComponent<UIManager>();
 	}
 
+	public RectTransform GetMainCanvasRect()
+	{
+		return m_uiManager.GetMainCanvasRect();
+	}
+
+	public Camera GetMainCamera()
+	{
+		return m_uiManager.GetMainCamera();
+	}
+
+	public Camera GetUICamera()
+	{
+		return m_uiManager.GetUICamera();
+	}
+
 	public void OnClickAbilityPanel()
 	{
 		m_uiManager.ToggleMainPanel(UIManager.MainPanelType.Ability);

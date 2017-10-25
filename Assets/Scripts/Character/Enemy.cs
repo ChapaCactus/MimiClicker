@@ -30,11 +30,12 @@ public class Enemy : BaseCharaModel
 	public void Move(Vector3 startPos, Vector3 goalPos)
 	{
 		transform.position = startPos;
-		transform.DOMove(goalPos, 8)
+		transform.DOMove(goalPos, 3)
 				 .SetEase(Ease.Linear)
 				 .OnComplete(() =>
 				 {
 					 m_onEndMove();
+					 ChangeState(State.MoveEnd);
 				 });
 	}
 
@@ -43,6 +44,15 @@ public class Enemy : BaseCharaModel
 		if (m_currentState != nextState)
 		{
 			m_currentState = nextState;
+
+			if(m_currentState == State.MoveEnd)
+			{
+				// 移動が終わった時
+				var screenPos = Utilities.GetScreenPosition(transform.position);
+				var fukidashi = Fukidashi.Create();
+				fukidashi.Setup("!", () => { Debug.Log("吹き出しアニメーション終わり！"); });
+				fukidashi.Move(screenPos + new Vector2(0, 25), 15f);
+			}
 		}
 		else
 		{
