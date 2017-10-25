@@ -1,0 +1,185 @@
+fileFormatVersion: 2
+guid: 6769f1e6e0e5de1498000b88e88f623b
+timeCreated: 1491880834
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: _root
+    100002: Bip001
+    100004: Bip001 Pelvis
+    100006: Bip001 Spine
+    100008: Bip001 Spine1
+    100010: Bone_Haed
+    100012: L_EYE_Dummy
+    100014: Mimic_A01_body
+    100016: Mimic_A01_BotTeeth
+    100018: Mimic_A01_Eye
+    100020: Mimic_A01_Gold
+    100022: Mimic_A01_haed
+    100024: Mimic_A01_TopTeeth
+    100026: //RootNode
+    100028: R_EYE_Dummy
+    100030: teeth_bot
+    100032: teeth_top
+    100034: Text001
+    400000: _root
+    400002: Bip001
+    400004: Bip001 Pelvis
+    400006: Bip001 Spine
+    400008: Bip001 Spine1
+    400010: Bone_Haed
+    400012: L_EYE_Dummy
+    400014: Mimic_A01_body
+    400016: Mimic_A01_BotTeeth
+    400018: Mimic_A01_Eye
+    400020: Mimic_A01_Gold
+    400022: Mimic_A01_haed
+    400024: Mimic_A01_TopTeeth
+    400026: //RootNode
+    400028: R_EYE_Dummy
+    400030: teeth_bot
+    400032: teeth_top
+    400034: Text001
+    4300000: Mimic_A01_haed
+    4300002: Mimic_A01_Gold
+    4300004: Mimic_A01_body
+    4300006: Mimic_A01_Eye
+    4300008: Mimic_A01_TopTeeth
+    4300010: Mimic_A01_BotTeeth
+    7400000: Mimic_Transform
+    9500000: //RootNode
+    13700000: Mimic_A01_body
+    13700002: Mimic_A01_BotTeeth
+    13700004: Mimic_A01_Eye
+    13700006: Mimic_A01_Gold
+    13700008: Mimic_A01_haed
+    13700010: Mimic_A01_TopTeeth
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Mimic_Transform
+      takeName: Take 001
+      firstFrame: 10
+      lastFrame: 36
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _root
+        weight: 1
+      - path: _root/Bip001
+        weight: 1
+      - path: _root/Bip001/Bip001 Pelvis
+        weight: 1
+      - path: _root/Bip001/Bip001 Pelvis/Bip001 Spine
+        weight: 1
+      - path: _root/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1
+        weight: 1
+      - path: _root/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bone_Haed
+        weight: 1
+      - path: _root/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bone_Haed/L_EYE_Dummy
+        weight: 1
+      - path: _root/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bone_Haed/R_EYE_Dummy
+        weight: 1
+      - path: _root/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bone_Haed/teeth_top
+        weight: 1
+      - path: _root/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/teeth_bot
+        weight: 1
+      - path: Mimic_A01_body
+        weight: 1
+      - path: Mimic_A01_BotTeeth
+        weight: 1
+      - path: Mimic_A01_Eye
+        weight: 1
+      - path: Mimic_A01_Gold
+        weight: 1
+      - path: Mimic_A01_haed
+        weight: 1
+      - path: Mimic_A01_TopTeeth
+        weight: 1
+      - path: Text001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: _root
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
