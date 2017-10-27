@@ -7,13 +7,15 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 	private GameController m_gameController;
+	// 基本操作するミミック
+	[SerializeField] private Mimic m_mainMimic;
+	// サブミミック
+	[SerializeField] private Mimic[] m_subMimics;
 
 	// 敵スポナー
 	[SerializeField] private EnemySpawner m_enemySpawner;
 
 	[SerializeField] private UIManager m_uiManager;
-	// 基本操作するミミック
-	[SerializeField] private Mimic m_mainMimic;
 
 	// 出現している敵
 	public Enemy Enemy { get; set; }

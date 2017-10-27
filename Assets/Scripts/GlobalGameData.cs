@@ -14,8 +14,10 @@ public static class GlobalGameData
 	// 所持金
 	public static int Gold { get; private set; }
 	// 累計の取得したお金
-	// NOTE - 基本的に増やすのみで減らさない
 	public static int TotalGold { get; private set; }
+
+	// トレーニングにかかるコスト
+	public static int TrainingCost { get { return (int)(Level * 1.5f); } }
 
 	/// <summary>
 	/// データセーブ

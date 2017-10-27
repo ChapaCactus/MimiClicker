@@ -63,22 +63,22 @@ public class UIManager : MonoBehaviour
 			{
 				case MainPanelType.Off:
 					m_abilityPanel.gameObject.SetActive(false);
-					m_trainingPanel.gameObject.SetActive(false);
+					m_trainingPanel.Show(false);
 					m_mapPanel.gameObject.SetActive(false);
 					break;
 				case MainPanelType.Ability:
 					m_abilityPanel.gameObject.SetActive(true);
-					m_trainingPanel.gameObject.SetActive(false);
+					m_trainingPanel.Show(false);
 					m_mapPanel.gameObject.SetActive(false);
 					break;
 				case MainPanelType.Training:
 					m_abilityPanel.gameObject.SetActive(false);
-					m_trainingPanel.gameObject.SetActive(true);
+					m_trainingPanel.Show(true);
 					m_mapPanel.gameObject.SetActive(false);
 					break;
 				case MainPanelType.Map:
 					m_abilityPanel.gameObject.SetActive(false);
-					m_trainingPanel.gameObject.SetActive(false);
+					m_trainingPanel.Show(false);
 					m_mapPanel.gameObject.SetActive(true);
 					break;
 			}
@@ -86,7 +86,7 @@ public class UIManager : MonoBehaviour
 		{
 			// 表示しているグループと同じグループが指定されたら、全てオフる
 			m_abilityPanel.gameObject.SetActive(false);
-			m_trainingPanel.gameObject.SetActive(false);
+			m_trainingPanel.Show(false);
 			m_mapPanel.gameObject.SetActive(false);
 
 			m_currentPanelType = MainPanelType.Off;
