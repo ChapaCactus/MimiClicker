@@ -47,6 +47,12 @@ public class UIManager : MonoBehaviour
 	public void UpdateGoldText(int gold)
 	{
 		m_goldText.text = (GOLD_TEXT_HEADER + gold);
+
+		if (m_trainingPanel.isActiveAndEnabled)
+		{
+			// トレーニングパネルが有効なら、UI更新
+			m_trainingPanel.UpdateUITexts();
+		}
 	}
 
 	/// <summary>
@@ -82,7 +88,8 @@ public class UIManager : MonoBehaviour
 					m_mapPanel.gameObject.SetActive(true);
 					break;
 			}
-		} else
+		}
+		else
 		{
 			// 表示しているグループと同じグループが指定されたら、全てオフる
 			m_abilityPanel.gameObject.SetActive(false);

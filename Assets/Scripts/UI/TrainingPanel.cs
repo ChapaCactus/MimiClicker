@@ -25,7 +25,8 @@ public class TrainingPanel : MonoBehaviour
 			// 表示
 			OnOpen();
 			gameObject.SetActive(true);
-		} else
+		}
+		else
 		{
 			// 非表示
 			gameObject.SetActive(false);
@@ -35,6 +36,21 @@ public class TrainingPanel : MonoBehaviour
 	public void OnTapTraining()
 	{
 		GlobalGameData.Training(OnTrainingSuccess, OnTrainingFailure);
+	}
+
+	/// <summary>
+	/// 各種テキスト更新
+	/// </summary>
+	public void UpdateUITexts()
+	{
+		int level = GetCurrentLevel();
+		int trainingCost = GetTrainingCost();
+		int gold = GetGold();
+
+		m_lvText.text = ("Lv: " + level);
+		m_costText.text = ("C: " + trainingCost);
+		// トレーニング開始ボタンの活性・非活性化
+		m_trainingButton.interactable = (gold >= trainingCost) ? true : false;
 	}
 
 	private void OnTrainingSuccess()
@@ -50,21 +66,6 @@ public class TrainingPanel : MonoBehaviour
 	private void OnOpen()
 	{
 		UpdateUITexts();
-	}
-
-	/// <summary>
-	/// 各種テキスト更新
-	/// </summary>
-	private void UpdateUITexts()
-	{
-		int level = GetCurrentLevel();
-		int trainingCost = GetTrainingCost();
-		int gold = GetGold();
-
-		m_lvText.text = ("Lv: " + level);
-		m_costText.text = ("C: " + trainingCost);
-		// トレーニング開始ボタンの活性・非活性化
-		m_trainingButton.interactable = (gold >= trainingCost) ? true : false;
 	}
 
 	private int GetCurrentLevel()
