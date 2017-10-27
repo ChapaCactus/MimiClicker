@@ -57,8 +57,14 @@ public class TrainingPanel : MonoBehaviour
 	/// </summary>
 	private void UpdateUITexts()
 	{
-		m_lvText.text = ("Lv: " + GetCurrentLevel());
-		m_costText.text = ("C: " + GetTrainingCost());
+		int level = GetCurrentLevel();
+		int trainingCost = GetTrainingCost();
+		int gold = GetGold();
+
+		m_lvText.text = ("Lv: " + level);
+		m_costText.text = ("C: " + trainingCost);
+		// トレーニング開始ボタンの活性・非活性化
+		m_trainingButton.interactable = (gold >= trainingCost) ? true : false;
 	}
 
 	private int GetCurrentLevel()
@@ -69,5 +75,10 @@ public class TrainingPanel : MonoBehaviour
 	private int GetTrainingCost()
 	{
 		return GlobalGameData.TrainingCost;
+	}
+
+	private int GetGold()
+	{
+		return GlobalGameData.Gold;
 	}
 }
