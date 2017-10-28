@@ -47,12 +47,8 @@ public static class GlobalGameData
 			m_userVO = JsonUtility.FromJson<UserVO>(dataObject);
 		} else
 		{
-			// セーブデータが無い場合
-			var newData = new UserVO();
-			newData.level = 1;
-			newData.gold = 0;
-			newData.totalGold = 0;
-			m_userVO = newData;
+			// セーブデータが無い場合は作成する
+			m_userVO = GetNewUserVO();
 		}
 
 		onComplete();
@@ -104,6 +100,25 @@ public static class GlobalGameData
 			failure();
 		}
 	}
+
+	/// <summary>
+	/// 初期化用ユーザーデータ作成
+	/// </summary>
+	private static UserVO GetNewUserVO()
+	{
+		var newData = new UserVO();
+		newData.level = 1;
+		newData.gold = 0;
+		newData.totalGold = 0;
+
+		newData.MaxHealth = 1;
+		newData.Health = 1;
+		newData.Attack = 1;
+		newData.Defense = 1;
+		newData.Luck = 1;
+
+		return newData;
+	}
 }
 
 [Serializable]
@@ -112,4 +127,10 @@ public class UserVO
 	public int level;
 	public int gold;
 	public int totalGold;
+
+	public int MaxHealth, Health;
+	public int Attack;
+	public int Defense;
+
+	public int Luck;
 }
