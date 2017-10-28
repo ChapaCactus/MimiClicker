@@ -13,21 +13,92 @@ public static class GlobalGameData
 	private static UserVO m_userVO;
 
 	// レベル
-	public static int Level { get { return m_userVO.level; } private set { m_userVO.level = value; } }
+	public static int Level
+	{
+		get { return m_userVO.level; }
+		private set
+		{
+			m_userVO.level = value;
+			if (m_userVO.level < 0) m_userVO.level = 0;
+		}
+	}
+
 	// 所持金
-	public static int Gold { get { return m_userVO.gold; } private set { m_userVO.gold = value; } }
+	public static int Gold
+	{
+		get { return m_userVO.gold; }
+		private set
+		{
+			m_userVO.gold = value;
+			if (m_userVO.gold < 0) m_userVO.gold = 0;
+		}
+	}
+
 	// 累計の取得したお金
-	public static int TotalGold { get { return m_userVO.totalGold; } private set { m_userVO.totalGold = value; } }
+	public static int TotalGold
+	{
+		get { return m_userVO.totalGold; }
+		private set
+		{
+			m_userVO.totalGold = value;
+			if (m_userVO.totalGold < 0) m_userVO.totalGold = 0;
+		}
+	}
+
 	// 最大HP
-	public static int MaxHealth { get { return m_userVO.MaxHealth; } private set { m_userVO.MaxHealth = value; } }
+	public static int MaxHealth
+	{
+		get { return m_userVO.maxHealth; }
+		private set
+		{
+			m_userVO.maxHealth = value;
+			if (m_userVO.maxHealth < 0) m_userVO.maxHealth = 0;
+		}
+	}
+
 	// HP
-	public static int Health { get { return m_userVO.Health; } private set { m_userVO.Health = value; } }
+	public static int Health
+	{
+		get { return m_userVO.health; }
+		private set
+		{
+			m_userVO.health = value;
+			if (m_userVO.health < 0) m_userVO.health = 0;
+		}
+	}
+
 	// 攻撃力
-	public static int Attack { get { return m_userVO.Attack; } private set { m_userVO.Attack = value; } }
+	public static int Attack
+	{
+		get { return m_userVO.attack; }
+		private set
+		{
+			m_userVO.attack = value;
+			if (m_userVO.attack < 0) m_userVO.attack = 0;
+		}
+	}
+
 	// 防御力
-	public static int Defense { get { return m_userVO.Defense; } private set { m_userVO.Defense = value; } }
+	public static int Defense
+	{
+		get { return m_userVO.defense; }
+		private set
+		{
+			m_userVO.defense = value;
+			if (m_userVO.defense < 0) m_userVO.defense = 0;
+		}
+	}
+
 	// 幸運
-	public static int Luck { get { return m_userVO.Luck; } private set { m_userVO.Luck = value; } }
+	public static int Luck
+	{
+		get { return m_userVO.luck; }
+		private set
+		{
+			m_userVO.luck = value;
+			if (m_userVO.luck < 0) m_userVO.luck = 0;
+		}
+	}
 
 	// トレーニングにかかるコスト
 	public static int TrainingCost { get { return (int)(Level * 1.5f); } }
@@ -55,7 +126,8 @@ public static class GlobalGameData
 		{
 			var dataObject = ES2.Load<string>(USERDATA_KEY);
 			m_userVO = JsonUtility.FromJson<UserVO>(dataObject);
-		} else
+		}
+		else
 		{
 			// セーブデータが無い場合は作成する
 			m_userVO = GetNewUserVO();
@@ -118,7 +190,8 @@ public static class GlobalGameData
 			GlobalGameData.UseGold(trainingCost);
 
 			success();
-		} else
+		}
+		else
 		{
 			failure();
 		}
@@ -134,11 +207,11 @@ public static class GlobalGameData
 		newData.gold = 0;
 		newData.totalGold = 0;
 
-		newData.MaxHealth = 1;
-		newData.Health = 1;
-		newData.Attack = 1;
-		newData.Defense = 1;
-		newData.Luck = 1;
+		newData.maxHealth = 1;
+		newData.health = 1;
+		newData.attack = 1;
+		newData.defense = 1;
+		newData.luck = 1;
 
 		return newData;
 	}
@@ -151,9 +224,9 @@ public class UserVO
 	public int gold;
 	public int totalGold;
 
-	public int MaxHealth, Health;
-	public int Attack;
-	public int Defense;
+	public int maxHealth, health;
+	public int attack;
+	public int defense;
 
-	public int Luck;
+	public int luck;
 }
