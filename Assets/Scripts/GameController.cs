@@ -67,9 +67,6 @@ public class GameController : SingletonMonoBehaviour<GameController>
 	/// </summary>
 	private void Tap()
 	{
-		if (m_onTapCallback != null)
-		{
-			m_onTapCallback();
-		}
+		m_onTapCallback();
 	}
 }

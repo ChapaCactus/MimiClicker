@@ -9,6 +9,7 @@ using UnityEngine;
 /// </summary>
 public static class GlobalGameData
 {
+	// ユーザデータ
 	private static UserVO m_userVO;
 
 	// レベル
