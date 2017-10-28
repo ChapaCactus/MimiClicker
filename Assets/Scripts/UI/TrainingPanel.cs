@@ -56,11 +56,13 @@ public class TrainingPanel : MonoBehaviour
 	private void OnTrainingSuccess()
 	{
 		UpdateUITexts();
+		UIController.I.UpdateUITexts();
 	}
 
 	private void OnTrainingFailure()
 	{
 		UpdateUITexts();
+		UIController.I.UpdateUITexts();
 	}
 
 	private void OnOpen()

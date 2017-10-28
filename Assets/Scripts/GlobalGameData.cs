@@ -82,11 +82,27 @@ public static class GlobalGameData
 		onGainGold(Gold);
 	}
 
+	public static void UseGold(int use)
+	{
+		m_userVO.gold -= use;
+		if (Gold < 0) m_userVO.gold = 0;
+	}
+
 	public static void Training(Action success, Action failure)
 	{
-		m_userVO.level++;
+		var gold = GlobalGameData.Gold;
+		var trainingCost = GlobalGameData.TrainingCost;
 
-		success();
+		if (gold >= trainingCost)
+		{
+			m_userVO.level++;
+			GlobalGameData.UseGold(trainingCost);
+
+			success();
+		} else
+		{
+			failure();
+		}
 	}
 }
 

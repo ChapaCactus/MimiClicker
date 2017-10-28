@@ -9,17 +9,9 @@ public class GameController : SingletonMonoBehaviour<GameController>
 	private GameManager m_gameManager;
 
 	// タップした時
-	private Action m_onTapCallback;
+	private Action m_onTap;
 
 	private static string GAME_CONTROLLER_GO_NAME = "GameController";
-
-	private void Update()
-	{
-		if (Input.GetMouseButtonDown(0))
-		{
-			Tap();
-		}
-	}
 
 	/// <summary>
 	/// ゲームコントローラー作成
@@ -41,9 +33,9 @@ public class GameController : SingletonMonoBehaviour<GameController>
 	/// <summary>
 	/// コールバック設定
 	/// </summary>
-	public void SetCallback(Action onTapCallback)
+	public void SetCallback(Action onTap)
 	{
-		m_onTapCallback = onTapCallback;
+		TouchController.I.SetTapCallback(onTap);
 	}
 
 	/// <summary>
@@ -60,13 +52,5 @@ public class GameController : SingletonMonoBehaviour<GameController>
 	public Enemy GetEnemy()
 	{
 		return m_gameManager.Enemy;
-	}
-
-	/// <summary>
-	/// タップ処理
-	/// </summary>
-	private void Tap()
-	{
-		m_onTapCallback();
 	}
 }

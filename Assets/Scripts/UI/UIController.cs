@@ -13,6 +13,12 @@ public class UIController : SingletonMonoBehaviour<UIController>
 		m_uiManager = GetComponent<UIManager>();
 	}
 
+	public void UpdateUITexts()
+	{
+		var gold = GlobalGameData.Gold;
+		m_uiManager.UpdateGoldText(gold);
+	}
+
 	public RectTransform GetMainCanvasRect()
 	{
 		return m_uiManager.GetMainCanvasRect();
