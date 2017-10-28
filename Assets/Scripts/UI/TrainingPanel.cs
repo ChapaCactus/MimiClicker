@@ -35,7 +35,7 @@ public class TrainingPanel : MonoBehaviour
 
 	public void OnTapTraining()
 	{
-		GlobalGameData.Training(OnTrainingSuccess, OnTrainingFailure);
+		GetMainMimic().Training(OnTrainingSuccess, OnTrainingFailure);
 	}
 
 	/// <summary>
@@ -72,16 +72,21 @@ public class TrainingPanel : MonoBehaviour
 
 	private int GetCurrentLevel()
 	{
-		return GlobalGameData.Level;
+		return GetMainMimic().Level;
 	}
 
 	private int GetTrainingCost()
 	{
-		return GlobalGameData.TrainingCost;
+		return GetMainMimic().TrainingCost;
 	}
 
 	private int GetGold()
 	{
 		return GlobalGameData.Gold;
+	}
+
+	private Mimic GetMainMimic()
+	{
+		return GameController.I.GetMainMimic();
 	}
 }

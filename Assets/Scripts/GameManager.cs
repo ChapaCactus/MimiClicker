@@ -25,6 +25,11 @@ public class GameManager : MonoBehaviour
 		StartCoroutine(Setup());
 	}
 
+	public Mimic GetMainMimic()
+	{
+		return m_mainMimic;
+	}
+
 	private IEnumerator Setup()
 	{
 		yield return Load();

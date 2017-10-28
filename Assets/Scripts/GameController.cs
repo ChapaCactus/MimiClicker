@@ -38,6 +38,11 @@ public class GameController : SingletonMonoBehaviour<GameController>
 		TouchController.I.SetTapCallback(onTap);
 	}
 
+	public Mimic GetMainMimic()
+	{
+		return m_gameManager.GetMainMimic();
+	}
+
 	/// <summary>
 	/// 敵をセット
 	/// </summary>

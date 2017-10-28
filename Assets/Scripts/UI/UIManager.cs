@@ -26,6 +26,8 @@ public class UIManager : MonoBehaviour
 	[SerializeField] private Camera m_uiCamera;
 	// 所持金表示
 	[SerializeField] private Text m_goldText;
+	// マップ名表示
+	[SerializeField] private Text m_mapTitleText;
 
 	// InfoPanels
 	[SerializeField] private AbilityPanel m_abilityPanel;
@@ -53,6 +55,14 @@ public class UIManager : MonoBehaviour
 			// トレーニングパネルが有効なら、UI更新
 			m_trainingPanel.UpdateUITexts();
 		}
+	}
+
+	/// <summary>
+	/// マップ名表示を更新
+	/// </summary>
+	public void SetMapTitleText(string title)
+	{
+		m_mapTitleText.text = title;
 	}
 
 	/// <summary>
