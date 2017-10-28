@@ -13,11 +13,21 @@ public static class GlobalGameData
 	private static UserVO m_userVO;
 
 	// レベル
-	public static int Level { get { return m_userVO.level; } }
+	public static int Level { get { return m_userVO.level; } private set { m_userVO.level = value; } }
 	// 所持金
-	public static int Gold { get { return m_userVO.gold; } }
+	public static int Gold { get { return m_userVO.gold; } private set { m_userVO.gold = value; } }
 	// 累計の取得したお金
-	public static int TotalGold { get { return m_userVO.totalGold; } }
+	public static int TotalGold { get { return m_userVO.totalGold; } private set { m_userVO.totalGold = value; } }
+	// 最大HP
+	public static int MaxHealth { get { return m_userVO.MaxHealth; } private set { m_userVO.MaxHealth = value; } }
+	// HP
+	public static int Health { get { return m_userVO.Health; } private set { m_userVO.Health = value; } }
+	// 攻撃力
+	public static int Attack { get { return m_userVO.Attack; } private set { m_userVO.Attack = value; } }
+	// 防御力
+	public static int Defense { get { return m_userVO.Defense; } private set { m_userVO.Defense = value; } }
+	// 幸運
+	public static int Luck { get { return m_userVO.Luck; } private set { m_userVO.Luck = value; } }
 
 	// トレーニングにかかるコスト
 	public static int TrainingCost { get { return (int)(Level * 1.5f); } }
@@ -70,18 +80,31 @@ public static class GlobalGameData
 	/// <param name="gain">得た金額</param>
 	public static void GainGold(int gain, Action<int> onGainGold)
 	{
-		m_userVO.gold += gain;
-		if (Gold < 0) m_userVO.gold = 0;
+		Gold += gain;
+		if (Gold < 0) Gold = 0;
 
-		m_userVO.totalGold += gain;
+		TotalGold += gain;
 
 		onGainGold(Gold);
 	}
 
 	public static void UseGold(int use)
 	{
-		m_userVO.gold -= use;
-		if (Gold < 0) m_userVO.gold = 0;
+		Gold -= use;
+		if (Gold < 0) Gold = 0;
+	}
+
+	/// <summary>
+	/// ダメージを受ける
+	/// </summary>
+	public static void Damage(int damage)
+	{
+		Health -= damage;
+		if (Health <= 0)
+		{
+			Health = 0;
+			// 死亡処理
+		}
 	}
 
 	public static void Training(Action success, Action failure)
