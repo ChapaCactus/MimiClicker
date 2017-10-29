@@ -8,6 +8,10 @@ public abstract class BaseCharaModel : MonoBehaviour
 {
 	protected StatusVO m_statusVO;
 
+	protected BaseCharaModel m_target;
+
+	private Action m_onDead;
+
 	// アイテムドロップの開始点
 	[SerializeField] private Transform m_itemDropStartPos;
 
@@ -45,25 +49,30 @@ public abstract class BaseCharaModel : MonoBehaviour
 	}
 
 	// 攻撃力
-	public int Attack
+	public int ATK
 	{
-		get { return m_statusVO.attack; }
+		get { return m_statusVO.atk; }
 		protected set
 		{
-			m_statusVO.attack = value;
-			if (m_statusVO.attack < 0) m_statusVO.attack = 0;
+			m_statusVO.atk = value;
+			if (m_statusVO.atk < 0) m_statusVO.atk = 0;
 		}
 	}
 
 	// 防御力
-	public int Defense
+	public int DEF
 	{
-		get { return m_statusVO.defense; }
+		get { return m_statusVO.def; }
 		protected set
 		{
-			m_statusVO.defense = value;
-			if (m_statusVO.defense < 0) m_statusVO.defense = 0;
+			m_statusVO.def = value;
+			if (m_statusVO.def < 0) m_statusVO.def = 0;
 		}
+	}
+
+	public void SetDeadCallback(Action onDead)
+	{
+		m_onDead = onDead;
 	}
 
 	/// <summary>
@@ -82,17 +91,39 @@ public abstract class BaseCharaModel : MonoBehaviour
 		goldObject.StartTimer();
 	}
 
+	public void SetTarget(BaseCharaModel target)
+	{
+		m_target = target;
+	}
+
+	/// <summary>
+	/// 攻撃処理
+	/// </summary>
+	protected void Attack()
+	{
+		m_target.Damage(ATK);
+	}
+
 	/// <summary>
 	/// ダメージを受ける
 	/// </summary>
 	public void Damage(int damage)
 	{
-		Health -= damage;
-		if (Health <= 0)
+		if (Health >= 1)
 		{
-			Health = 0;
-			// 死亡処理
+			Health -= damage;
+			if (Health <= 0)
+			{
+				Health = 0;
+				// 死亡処理
+				Dead();
+			}
 		}
+	}
+
+	private void Dead()
+	{
+		m_onDead();
 	}
 
 	private Vector3 GetRandomDir()
@@ -114,6 +145,6 @@ public class StatusVO
 	public int totalGold;
 
 	public int maxHealth, health;
-	public int attack;
-	public int defense;
+	public int atk;
+	public int def;
 }

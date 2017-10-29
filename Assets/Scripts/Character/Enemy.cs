@@ -62,11 +62,6 @@ public class Enemy : BaseCharaModel
 		ChangeState(State.Opening);
 	}
 
-	private void Attack()
-	{
-		Debug.Log("Attack!!");
-	}
-
 	private void ChangeState(State nextState)
 	{
 		if (m_currentState != nextState)

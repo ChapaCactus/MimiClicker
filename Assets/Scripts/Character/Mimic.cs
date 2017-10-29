@@ -11,10 +11,20 @@ public class Mimic : BaseCharaModel
 	// トレーニングにかかるコスト
 	public int TrainingCost { get { return (int)(Level * 1.5f); } }
 
+	private static readonly string PREFAB_PATH = "Prefabs/Character/Mimic";
+
 	private void Awake()
 	{
 		// test
 		ChargePower = 1;
+	}
+
+	public static Mimic Create()
+	{
+		var prefab = Resources.Load<Mimic>(PREFAB_PATH);
+		var mimic = Instantiate<Mimic>(prefab);
+
+		return mimic;
 	}
 
 	public void ChargeGold(Action<int> onEndCharge)

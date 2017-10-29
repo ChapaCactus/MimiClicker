@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
 
 		yield return CreateGameController();
 
+		yield return CreateMainMimic();
+
 		yield return SetupEnemySpawner();
 
 		UpdateUIContents();
@@ -53,6 +55,20 @@ public class GameManager : MonoBehaviour
 		});
 
 		yield return wait;
+	}
+
+	private IEnumerator CreateMainMimic()
+	{
+		var target = GameController.I.GetEnemy();
+
+		m_mainMimic = Mimic.Create();
+		m_mainMimic.SetTarget(target);
+		m_mainMimic.SetDeadCallback(() => {
+			m_mainMimic = null;
+			Destroy(m_mainMimic.gameObject);
+		});
+
+		yield return null;
 	}
 
 	private IEnumerator CreateGameController()
