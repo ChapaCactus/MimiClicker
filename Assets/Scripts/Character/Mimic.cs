@@ -6,17 +6,48 @@ using UnityEngine;
 
 public class Mimic : BaseCharaModel
 {
+	public enum State
+	{
+		None,
+		Wait,
+		Battle,
+		Think
+	}
+
 	public int ChargePower { get; private set; }
 
 	// トレーニングにかかるコスト
 	public int TrainingCost { get { return (int)(Level * 1.5f); } }
 
-	private static readonly string PREFAB_PATH = "Prefabs/Character/Mimic";
+	private State m_currentState = State.None;
+
+	private float m_attackTimer = 0;
+
+	private Action<int> m_onDamaged;
+
+	private const float ATTACK_TIMER_DEFAULT = 0.3f;
+	private const string PREFAB_PATH = "Prefabs/Character/Mimic";
 
 	private void Awake()
 	{
 		// test
 		ChargePower = 1;
+		// test ダメージを受けたら戦闘状態にしておく
+		m_onDamaged = (damage) => m_currentState = State.Battle;
+	}
+
+	private void Update()
+	{
+		if (m_currentState == State.Battle)
+		{
+			m_attackTimer -= Time.deltaTime;
+
+			if (m_attackTimer <= 0)
+			{
+				m_attackTimer = ATTACK_TIMER_DEFAULT;
+				Attack();
+			}
+		}
 	}
 
 	public static Mimic Create()
@@ -26,6 +57,13 @@ public class Mimic : BaseCharaModel
 		mimic.Init();
 
 		return mimic;
+	}
+
+	public override void Damage(int damage, Action<StatusVO> onDiedThisChara)
+	{
+		base.Damage(damage, onDiedThisChara);
+
+		m_onDamaged.Call(damage);
 	}
 
 	public void ChargeGold(Action<int> onEndCharge)
@@ -61,10 +99,20 @@ public class Mimic : BaseCharaModel
 	private void Init()
 	{
 		m_statusVO = StatusVO.Create();
+		// test
+		m_statusVO.maxHealth = 10;
+		m_statusVO.health = 10;
+	}
+
+	protected override BaseCharaModel GetTarget()
+	{
+		return GameController.I.GetEnemy();
 	}
 
 	protected override void OnKilledTarget(StatusVO killedCharaVO)
 	{
-		//
+		Debug.Log(killedCharaVO.name + "を倒した！！ 戦闘に勝利した！！");
+
+		m_currentState = State.Wait;
 	}
 }

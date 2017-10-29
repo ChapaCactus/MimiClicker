@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public static class Utilities
@@ -56,5 +58,18 @@ public static class Utilities
 			canvasGroup.interactable = false;
 			canvasGroup.blocksRaycasts = false;
 		}
+	}
+
+	/// <summary>
+	/// nullチェック付きAction呼び出し拡張クラス
+	/// </summary>
+	public static void Call<T>(this Action<T> action, T arg)
+	{
+		if (action != null)
+		{
+			action(arg);
+		}
+
+		Debug.Assert(action != null, "action is null.");
 	}
 }

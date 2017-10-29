@@ -18,9 +18,10 @@ namespace Google2u
 		public int _HP;
 		public int _ATK;
 		public int _DEF;
+		public int _GainExp;
 		public string _Explain;
 		public string _Model;
-		public EnemyMasterRow(string __ID, string __Name, string __HP, string __ATK, string __DEF, string __Explain, string __Model) 
+		public EnemyMasterRow(string __ID, string __Name, string __HP, string __ATK, string __DEF, string __GainExp, string __Explain, string __Model) 
 		{
 			_Name = __Name.Trim();
 			{
@@ -44,11 +45,18 @@ namespace Google2u
 				else
 					Debug.LogError("Failed To Convert _DEF string: "+ __DEF +" to int");
 			}
+			{
+			int res;
+				if(int.TryParse(__GainExp, NumberStyles.Any, CultureInfo.InvariantCulture, out res))
+					_GainExp = res;
+				else
+					Debug.LogError("Failed To Convert _GainExp string: "+ __GainExp +" to int");
+			}
 			_Explain = __Explain.Trim();
 			_Model = __Model.Trim();
 		}
 
-		public int Length { get { return 6; } }
+		public int Length { get { return 7; } }
 
 		public string this[int i]
 		{
@@ -76,9 +84,12 @@ namespace Google2u
 					ret = _DEF.ToString();
 					break;
 				case 4:
-					ret = _Explain.ToString();
+					ret = _GainExp.ToString();
 					break;
 				case 5:
+					ret = _Explain.ToString();
+					break;
+				case 6:
 					ret = _Model.ToString();
 					break;
 			}
@@ -103,6 +114,9 @@ namespace Google2u
 				case "_DEF":
 					ret = _DEF.ToString();
 					break;
+				case "_GainExp":
+					ret = _GainExp.ToString();
+					break;
 				case "_Explain":
 					ret = _Explain.ToString();
 					break;
@@ -120,6 +134,7 @@ namespace Google2u
 			ret += "{" + "_HP" + " : " + _HP.ToString() + "} ";
 			ret += "{" + "_ATK" + " : " + _ATK.ToString() + "} ";
 			ret += "{" + "_DEF" + " : " + _DEF.ToString() + "} ";
+			ret += "{" + "_GainExp" + " : " + _GainExp.ToString() + "} ";
 			ret += "{" + "_Explain" + " : " + _Explain.ToString() + "} ";
 			ret += "{" + "_Model" + " : " + _Model.ToString() + "} ";
 			return ret;
@@ -136,7 +151,7 @@ namespace Google2u
 		public System.Collections.Generic.List<EnemyMasterRow> Rows = new System.Collections.Generic.List<EnemyMasterRow>();
 		public override void AddRowGeneric (System.Collections.Generic.List<string> input)
 		{
-			Rows.Add(new EnemyMasterRow(input[0],input[1],input[2],input[3],input[4],input[5],input[6]));
+			Rows.Add(new EnemyMasterRow(input[0],input[1],input[2],input[3],input[4],input[5],input[6],input[7]));
 		}
 		public override void Clear ()
 		{

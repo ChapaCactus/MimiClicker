@@ -8,9 +8,7 @@ using Google2u;
 
 public abstract class BaseCharaModel : MonoBehaviour
 {
-	protected StatusVO m_statusVO;
-
-	protected BaseCharaModel m_target;
+	[SerializeField] protected StatusVO m_statusVO;
 
 	private Action m_onDead;
 
@@ -93,20 +91,16 @@ public abstract class BaseCharaModel : MonoBehaviour
 		goldObject.StartTimer();
 	}
 
-	public void SetTarget(BaseCharaModel target)
-	{
-		m_target = target;
-	}
-
 	/// <summary>
 	/// ダメージを受ける
 	/// </summary>
 	/// <param name="onDiedThisChara">このダメージで死亡したか、その場合死亡したキャラデータを返す</param>
-	public void Damage(int damage, Action<StatusVO> onDiedThisChara)
+	public virtual void Damage(int damage, Action<StatusVO> onDiedThisChara)
 	{
 		if (Health >= 1)
 		{
 			Health -= damage;
+
 			if (Health <= 0)
 			{
 				Health = 0;
@@ -122,8 +116,18 @@ public abstract class BaseCharaModel : MonoBehaviour
 	/// </summary>
 	protected void Attack()
 	{
-		m_target.Damage(ATK, (killed) => OnKilledTarget(killed));
+		var target = GetTarget();
+
+		if(target != null)
+		{
+			target.Damage(ATK, (killed) => OnKilledTarget(killed));
+		} else
+		{
+			Debug.Log("対象が居ません。");
+		}
 	}
+
+	protected abstract BaseCharaModel GetTarget();
 
 	/// <summary>
 	/// 対象を殺した時の処理(abstract)
@@ -153,6 +157,10 @@ public abstract class BaseCharaModel : MonoBehaviour
 /// </summary>
 public class StatusVO
 {
+	public string name;
+
+	public int gainExp;// 倒した時に得る経験値
+
 	public int level;
 
 	public int maxHealth, health;
@@ -165,6 +173,8 @@ public class StatusVO
 	public static StatusVO Create()
 	{
 		var vo = new StatusVO();
+		vo.name = "";
+		vo.gainExp = 0;
 		vo.level = 1;
 		vo.maxHealth = 1;
 		vo.health = 1;

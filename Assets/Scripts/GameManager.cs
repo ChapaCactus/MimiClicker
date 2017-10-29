@@ -65,10 +65,7 @@ public class GameManager : MonoBehaviour
 
 	private IEnumerator CreateMainMimic()
 	{
-		var target = GameController.I.GetEnemy();
-
 		m_mainMimic = Mimic.Create();
-		m_mainMimic.SetTarget(target);
 		m_mainMimic.SetDeadCallback(() =>
 		{
 			Destroy(m_mainMimic.gameObject);

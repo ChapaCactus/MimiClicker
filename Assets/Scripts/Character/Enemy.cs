@@ -126,12 +126,9 @@ public class Enemy : BaseCharaModel
 				 });
 	}
 
-	/// <summary>
-	/// 立ち去り完了時
-	/// </summary>
-	private void EndAway()
+	protected override BaseCharaModel GetTarget()
 	{
-
+		return GameController.I.GetMainMimic();
 	}
 
 	protected override void OnKilledTarget(StatusVO killedCharaVO)
@@ -146,6 +143,8 @@ public class Enemy : BaseCharaModel
 	private StatusVO CreateStatusVOFromMaster(EnemyMasterRow master)
 	{
 		var statusVO = new StatusVO();
+		statusVO.name = master._Name;
+		statusVO.gainExp = master._GainExp;
 		statusVO.maxHealth = master._HP;
 		statusVO.health = master._HP;
 		statusVO.atk = master._ATK;

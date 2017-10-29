@@ -72,6 +72,13 @@ namespace Google2u
 			EditorGUILayout.EndHorizontal();
 
 			EditorGUILayout.BeginHorizontal();
+			GUILayout.Label( "_GainExp", GUILayout.Width( 150.0f ) );
+			{
+				EditorGUILayout.IntField( r._GainExp );
+			}
+			EditorGUILayout.EndHorizontal();
+
+			EditorGUILayout.BeginHorizontal();
 			GUILayout.Label( "_Explain", GUILayout.Width( 150.0f ) );
 			{
 				EditorGUILayout.TextField( r._Explain );

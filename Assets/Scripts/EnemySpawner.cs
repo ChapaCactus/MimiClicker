@@ -44,15 +44,13 @@ public class EnemySpawner : MonoBehaviour
 		var go = Instantiate(prefab, transform);
 		var enemy = go.GetComponent<Enemy>();
 
-		var target = GameController.I.GetMainMimic();
 		Action onEndMove = () => enemy.StartOpening();
 		Action endAway = () => GameController.I.KillEnemy();
 
-		var enemyMaster = DataManager.I.GetEnemyDataInMaster(EnemyMaster.rowIds.Enemy_001.ToString());
+		var enemyMaster = DataManager.I.GetEnemyDataInMaster(EnemyMaster.rowIds.Enemy_001);
 		enemy.SetVO(enemyMaster);
 
 		enemy.Setup(onEndMove, endAway);
-		enemy.SetTarget(target);
 		enemy.Move(m_enemySpawnPos.position, m_enemyGoalPos.position);
 		// 敵をセット
 		GameController.I.SetEnemy(enemy);
