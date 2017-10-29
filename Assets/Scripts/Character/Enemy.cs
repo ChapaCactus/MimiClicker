@@ -6,6 +6,8 @@ using UnityEngine;
 
 using DG.Tweening;
 
+using Google2u;
+
 public class Enemy : BaseCharaModel
 {
 	public enum State
@@ -22,8 +24,11 @@ public class Enemy : BaseCharaModel
 	private State m_currentState = State.None;
 
 	private Action m_onEndMove;
+	private Action m_endAway;// 立ち去った時
 
 	private float m_attackTimer = 0;
+
+	private Vector3 m_spawnPos;
 
 	private const float ATTACK_TIMER_DEFAULT = 2;
 
@@ -41,13 +46,21 @@ public class Enemy : BaseCharaModel
 		}
 	}
 
-	public void Setup(Action onEndMove)
+	public void Setup(Action onEndMove, Action endAway)
 	{
 		m_onEndMove = onEndMove;
+		m_endAway = endAway;
+	}
+
+	public void SetVO(EnemyMasterRow master)
+	{
+		// ステータスデータセット
+		m_statusVO = CreateStatusVOFromMaster(master);
 	}
 
 	public void Move(Vector3 startPos, Vector3 goalPos)
 	{
+		m_spawnPos = startPos;
 		transform.position = startPos;
 		transform.DOMove(goalPos, 3)
 				 .SetEase(Ease.Linear)
@@ -71,15 +84,73 @@ public class Enemy : BaseCharaModel
 			if (m_currentState == State.MoveEnd)
 			{
 				// 移動が終わった時
-				var screenPos = Utilities.GetScreenPosition(transform.position);
-				var fukidashi = Fukidashi.Create();
-				fukidashi.Setup("!", () => m_onEndMove());
-				fukidashi.Move(screenPos + new Vector2(0, 25), 15f);
+				if (GameController.I.GetMainMimic() != null)
+				{
+					// ミミックが居るなら
+					CreateFukidashi(15, "!", m_onEndMove);
+				}
+				else
+				{
+					// ミミックが居ない場合、何もせず帰る
+					CreateFukidashi(15, "?", () => ChangeState(State.Away));
+				}
+			}
+			else if (m_currentState == State.Away)
+			{
+				Away(transform.position, m_spawnPos);
 			}
 		}
 		else
 		{
 			// 何もしない
 		}
+	}
+
+	private void CreateFukidashi(float moveY, string message, Action onEndFukidashi)
+	{
+		var screenPos = Utilities.GetScreenPosition(transform.position);
+		var fukidashi = Fukidashi.Create();
+		fukidashi.Setup(message, onEndFukidashi);
+		fukidashi.Move(screenPos + new Vector2(0, 25), moveY);
+	}
+
+	private void Away(Vector3 startPos, Vector3 goalPos)
+	{
+		m_spawnPos = startPos;
+		transform.position = startPos;
+		transform.DOMove(goalPos, 3)
+				 .SetEase(Ease.Linear)
+				 .OnComplete(() =>
+				 {
+					 m_endAway();
+				 });
+	}
+
+	/// <summary>
+	/// 立ち去り完了時
+	/// </summary>
+	private void EndAway()
+	{
+
+	}
+
+	protected override void OnKilledTarget(StatusVO killedCharaVO)
+	{
+		// NOTE - 敵がMimicを倒した時... 立ち去る
+		ChangeState(State.Away);
+	}
+
+	/// <summary>
+	/// エネミーマスターからステータスデータを作成
+	/// </summary>
+	private StatusVO CreateStatusVOFromMaster(EnemyMasterRow master)
+	{
+		var statusVO = new StatusVO();
+		statusVO.maxHealth = master._HP;
+		statusVO.health = master._HP;
+		statusVO.atk = master._ATK;
+		statusVO.def = master._DEF;
+
+		return statusVO;
 	}
 }

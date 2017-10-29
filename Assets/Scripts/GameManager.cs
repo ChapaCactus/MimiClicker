@@ -30,6 +30,12 @@ public class GameManager : MonoBehaviour
 		return m_mainMimic;
 	}
 
+	public void KillEnemy()
+	{
+		Destroy(Enemy.gameObject);
+		Enemy = null;
+	}
+
 	private IEnumerator Setup()
 	{
 		yield return Load();
@@ -63,9 +69,10 @@ public class GameManager : MonoBehaviour
 
 		m_mainMimic = Mimic.Create();
 		m_mainMimic.SetTarget(target);
-		m_mainMimic.SetDeadCallback(() => {
-			m_mainMimic = null;
+		m_mainMimic.SetDeadCallback(() =>
+		{
 			Destroy(m_mainMimic.gameObject);
+			m_mainMimic = null;
 		});
 
 		yield return null;
@@ -107,7 +114,10 @@ public class GameManager : MonoBehaviour
 	/// </summary>
 	private void OnTap()
 	{
-		m_mainMimic.ChargeGold((charge) => GainGold(charge));
+		if (m_mainMimic != null)
+		{
+			m_mainMimic.ChargeGold((charge) => GainGold(charge));
+		}
 	}
 
 	/// <summary>

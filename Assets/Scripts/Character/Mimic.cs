@@ -23,6 +23,7 @@ public class Mimic : BaseCharaModel
 	{
 		var prefab = Resources.Load<Mimic>(PREFAB_PATH);
 		var mimic = Instantiate<Mimic>(prefab);
+		mimic.Init();
 
 		return mimic;
 	}
@@ -52,5 +53,18 @@ public class Mimic : BaseCharaModel
 		{
 			failure();
 		}
+	}
+
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	private void Init()
+	{
+		m_statusVO = StatusVO.Create();
+	}
+
+	protected override void OnKilledTarget(StatusVO killedCharaVO)
+	{
+		//
 	}
 }
