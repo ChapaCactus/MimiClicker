@@ -51,16 +51,19 @@ public class GameController : SingletonMonoBehaviour<GameController>
 		m_gameManager.Enemy = enemy;
 	}
 
-	public void KillEnemy()
-	{
-		m_gameManager.KillEnemy();
-	}
-
 	/// <summary>
 	/// 敵を取得
 	/// </summary>
 	public Enemy GetEnemy()
 	{
 		return m_gameManager.Enemy;
+	}
+
+	/// <summary>
+	/// 敵を殺す
+	/// </summary>
+	public void KillEnemy()
+	{
+		m_gameManager.KillEnemy();
 	}
 }
