@@ -40,21 +40,20 @@ public class EnemySpawner : MonoBehaviour
 
 	private void Spawn()
 	{
-		var prefab = Resources.Load("Prefabs/Character/Enemy") as GameObject;
-		var go = Instantiate(prefab, transform);
-		var enemy = go.GetComponent<Enemy>();
+		var enemy = Enemy.Create(transform, EnemyMaster.rowIds.Enemy_001);
 
+		// 到達した時
 		Action onEndMove = () => enemy.StartOpening();
+		// 帰還した時
 		Action endAway = () => GameController.I.KillEnemy();
+		// 死んだ時
 		Action onDead = () => GameController.I.KillEnemy();
-
-		var enemyMaster = DataManager.I.GetEnemyDataInMaster(EnemyMaster.rowIds.Enemy_001);
-		enemy.SetVO(enemyMaster);
 
 		enemy.Setup(onEndMove, endAway);
 		enemy.SetDeadCallback(onDead);
-		enemy.Move(m_enemySpawnPos.position, m_enemyGoalPos.position);
 		// 敵をセット
 		GameController.I.SetEnemy(enemy);
+		// 移動開始
+		enemy.Move(m_enemySpawnPos.position, m_enemyGoalPos.position);
 	}
 }

@@ -31,6 +31,7 @@ public class Enemy : BaseCharaModel
 	private Vector3 m_spawnPos;
 
 	private const float ATTACK_TIMER_DEFAULT = 2;
+	private const string PREFAB_PATH = "Prefabs/Character/Enemy";
 
 	private void Update()
 	{
@@ -44,6 +45,18 @@ public class Enemy : BaseCharaModel
 				Attack();
 			}
 		}
+	}
+
+	public static Enemy Create(Transform parent, EnemyMaster.rowIds id)
+	{
+		var prefab = Resources.Load(PREFAB_PATH) as GameObject;
+		var go = Instantiate(prefab, parent);
+		var enemy = go.GetComponent<Enemy>();
+		// Masterセット
+		var enemyMaster = DataManager.I.GetEnemyDataInMaster(EnemyMaster.rowIds.Enemy_001);
+		enemy.SetVO(enemyMaster);
+
+		return enemy;
 	}
 
 	public void Setup(Action onEndMove, Action endAway)
