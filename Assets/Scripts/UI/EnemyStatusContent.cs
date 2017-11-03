@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using DG.Tweening;
+
 public class EnemyStatusContent : MonoBehaviour
 {
 	public int ID { get; private set; }
@@ -15,6 +17,8 @@ public class EnemyStatusContent : MonoBehaviour
 
 	[SerializeField]
 	private Transform m_contentsParent;
+	[SerializeField]
+	private Transform m_animationTarget;
 
 	[SerializeField]
 	private Image m_backGroundImage;
@@ -38,14 +42,39 @@ public class EnemyStatusContent : MonoBehaviour
 				m_healthBar = healthBar;
 				m_healthBar.SetValue(maxHealth, health);
 
-				if (isEnemy) SetEnemyBG();
-				else SetPlayerBG();
+				if (isEnemy)
+				{
+					SetEnemyBG();
+					EnemyMoveIn();
+				}
+				else
+				{
+					SetPlayerBG();
+					PlayerMoveIn();
+				}
+
 			});
 		}
 		else
 		{
 			m_healthBar.SetValue(maxHealth, health);
 		}
+	}
+
+	private void EnemyMoveIn()
+	{
+		MoveIn(400, 0);
+	}
+
+	private void PlayerMoveIn()
+	{
+		MoveIn(-400, 0);
+	}
+
+	private void MoveIn(float fromX, float toX)
+	{
+		m_animationTarget.localPosition = new Vector2(fromX, 0);
+		m_animationTarget.DOLocalMoveX(toX, 0.7f);
 	}
 
 	private void SetEnemyBG()
