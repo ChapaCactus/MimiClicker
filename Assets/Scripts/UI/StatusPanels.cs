@@ -27,7 +27,7 @@ public class StatusPanels : MonoBehaviour
 		{
 			// 登録されていないIDの場合は新たに作成
 			CreateContent(dto, (content) => {
-				content.Setup(dto.WorldID);
+				content.Setup(dto.WorldID, dto.IsEnemy);
 				content.SetName(dto.Name);
 				content.SetHealth(dto.IsEnemy, dto.MaxHealth, dto.Health);
 				m_statusContentDic.Add(dto.WorldID, content);
@@ -40,8 +40,10 @@ public class StatusPanels : MonoBehaviour
 		if(m_statusContentDic.ContainsKey(dto.WorldID))
 		{
 			var content = m_statusContentDic[dto.WorldID];
-			Destroy(content.gameObject);
-			m_statusContentDic[dto.WorldID] = null;
+			content.MoveOut(dto.IsEnemy, () => {
+				Destroy(content.gameObject);
+				m_statusContentDic[dto.WorldID] = null;
+			});
 		} else
 		{
 			// 既に存在しないIDなら何もしない

@@ -72,4 +72,15 @@ public static class Utilities
 
 		Debug.Assert(action != null, "action is null.");
 	}
+
+	/// <summary>
+	/// nullチェック付きAction呼び出し拡張クラス
+	/// </summary>
+	public static void Call(this Action action)
+	{
+		if (action != null)
+		{
+			action();
+		}
+	}
 }

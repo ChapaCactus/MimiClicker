@@ -134,8 +134,14 @@ public class Enemy : BaseCharaModel
 		fukidashi.Move(screenPos + new Vector2(0, 25), moveY);
 	}
 
+	/// <summary>
+	/// 帰還
+	/// </summary>
 	private void Away(Vector3 startPos, Vector3 goalPos)
 	{
+		// 敵情報パネルを消しておく
+		UIController.I.DeleteStatusPanelsContent(Status);
+
 		m_spawnPos = startPos;
 		transform.position = startPos;
 		transform.DOMove(goalPos, 3)

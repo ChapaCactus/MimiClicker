@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -8,7 +9,7 @@ using DG.Tweening;
 
 public class EnemyStatusContent : MonoBehaviour
 {
-	public int ID { get; private set; }
+	public int WorldID { get; private set; }
 
 	[SerializeField]
 	private Text m_nameText;
@@ -23,9 +24,20 @@ public class EnemyStatusContent : MonoBehaviour
 	[SerializeField]
 	private Image m_backGroundImage;
 
-	public void Setup(int id)
+	public void Setup(int worldID, bool isEnemy)
 	{
-		ID = id;
+		WorldID = worldID;
+
+		if (isEnemy)
+		{
+			SetEnemyBG();
+			EnemyMoveIn();
+		}
+		else
+		{
+			SetPlayerBG();
+			PlayerMoveIn();
+		}
 	}
 
 	public void SetName(string name)
@@ -41,18 +53,6 @@ public class EnemyStatusContent : MonoBehaviour
 			{
 				m_healthBar = healthBar;
 				m_healthBar.SetValue(maxHealth, health);
-
-				if (isEnemy)
-				{
-					SetEnemyBG();
-					EnemyMoveIn();
-				}
-				else
-				{
-					SetPlayerBG();
-					PlayerMoveIn();
-				}
-
 			});
 		}
 		else
@@ -61,20 +61,43 @@ public class EnemyStatusContent : MonoBehaviour
 		}
 	}
 
+	public void MoveOut(bool isEnemy, Action onComplete)
+	{
+		if(isEnemy)
+		{
+			EnemyMoveOut(onComplete);
+		} else
+		{
+			PlayerMoveOut(onComplete);
+		}
+	}
+
 	private void EnemyMoveIn()
 	{
-		MoveIn(400, 0);
+		MoveX(400, 0);
 	}
 
 	private void PlayerMoveIn()
 	{
-		MoveIn(-400, 0);
+		MoveX(-400, 0);
 	}
 
-	private void MoveIn(float fromX, float toX)
+	private void EnemyMoveOut(Action onComplete)
+	{
+		MoveX(0, 400, onComplete);
+	}
+
+	private void PlayerMoveOut(Action onComplete)
+	{
+		MoveX(0, -400, onComplete);
+	}
+
+	private void MoveX(float fromX, float toX, Action onComplete = null)
 	{
 		m_animationTarget.localPosition = new Vector2(fromX, 0);
-		m_animationTarget.DOLocalMoveX(toX, 0.7f);
+		m_animationTarget.DOLocalMoveX(toX, 1f)
+						 .SetEase(Ease.InExpo)
+						 .OnComplete(() => onComplete.Call());
 	}
 
 	private void SetEnemyBG()
