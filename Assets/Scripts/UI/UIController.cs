@@ -48,4 +48,19 @@ public class UIController : SingletonMonoBehaviour<UIController>
 	{
 		m_uiManager.ToggleMainPanel(UIManager.MainPanelType.Map);
 	}
+
+	public HealthBar LoadHealbarPrefab()
+	{
+		return m_uiManager.LoadHealthBarPrefab();
+	}
+
+	public void UpdateStatusPanels(StatusVO vo)
+	{
+		m_uiManager.UpdateStatusPanels(vo);
+	}
+
+	public void DeleteStatusPanelsContent(StatusVO vo)
+	{
+		m_uiManager.DeleteStatusPanelsContent(vo);
+	}
 }

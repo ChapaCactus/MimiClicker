@@ -33,7 +33,10 @@ public class Mimic : BaseCharaModel
 		// test
 		ChargePower = 1;
 		// test ダメージを受けたら戦闘状態にしておく
-		m_onDamaged = (damage) => m_currentState = State.Battle;
+		m_onDamaged = (damage) =>
+		{
+			m_currentState = State.Battle;
+		};
 	}
 
 	private void Update()
@@ -99,9 +102,15 @@ public class Mimic : BaseCharaModel
 	private void Init()
 	{
 		m_statusVO = StatusVO.Create();
+		m_statusVO.isEnemy = false;
+		m_statusVO.id = -100;
+
 		// test
+		m_statusVO.name = "ミミックちゃん";
 		m_statusVO.maxHealth = 10;
 		m_statusVO.health = 10;
+
+		base.UpdateStatusPanel();
 	}
 
 	protected override BaseCharaModel GetTarget()

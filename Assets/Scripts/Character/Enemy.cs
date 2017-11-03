@@ -47,14 +47,14 @@ public class Enemy : BaseCharaModel
 		}
 	}
 
-	public static Enemy Create(Transform parent, EnemyMaster.rowIds id)
+	public static Enemy Create(Transform parent, EnemyMaster.rowIds masterID, int charaID)
 	{
 		var prefab = Resources.Load(PREFAB_PATH) as GameObject;
 		var go = Instantiate(prefab, parent);
 		var enemy = go.GetComponent<Enemy>();
 		// Masterセット
-		var enemyMaster = DataManager.I.GetEnemyDataInMaster(EnemyMaster.rowIds.Enemy_001);
-		enemy.SetVO(enemyMaster);
+		var enemyMaster = DataManager.I.GetEnemyDataInMaster(masterID);
+		enemy.SetVO(charaID, enemyMaster);
 
 		return enemy;
 	}
@@ -65,10 +65,12 @@ public class Enemy : BaseCharaModel
 		m_endAway = endAway;
 	}
 
-	public void SetVO(EnemyMasterRow master)
+	public void SetVO(int charaID, EnemyMasterRow master)
 	{
 		// ステータスデータセット
-		m_statusVO = CreateStatusVOFromMaster(master);
+		m_statusVO = CreateStatusVOFromMaster(charaID, master);
+
+		base.UpdateStatusPanel();
 	}
 
 	public void Move(Vector3 startPos, Vector3 goalPos)
@@ -153,9 +155,11 @@ public class Enemy : BaseCharaModel
 	/// <summary>
 	/// エネミーマスターからステータスデータを作成
 	/// </summary>
-	private StatusVO CreateStatusVOFromMaster(EnemyMasterRow master)
+	private StatusVO CreateStatusVOFromMaster(int charaID, EnemyMasterRow master)
 	{
 		var statusVO = new StatusVO();
+		statusVO.id = charaID;
+		statusVO.isEnemy = true;
 		statusVO.name = master._Name;
 		statusVO.gainExp = master._GainExp;
 		statusVO.maxHealth = master._HP;

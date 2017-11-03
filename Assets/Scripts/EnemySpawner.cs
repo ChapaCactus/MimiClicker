@@ -11,6 +11,9 @@ public class EnemySpawner : MonoBehaviour
 	[SerializeField] private Transform m_enemySpawnPos;
 	[SerializeField] private Transform m_enemyGoalPos;
 
+	// 敵ID生成数
+	private int m_createdIDCount = 0;
+
 	private float m_enemySpawnTimer = 0;
 	private bool m_isInitialized = false;
 
@@ -40,7 +43,9 @@ public class EnemySpawner : MonoBehaviour
 
 	private void Spawn()
 	{
-		var enemy = Enemy.Create(transform, EnemyMaster.rowIds.Enemy_001);
+		var masterID = EnemyMaster.rowIds.Enemy_001;
+		var charaID = m_createdIDCount += 1;
+		var enemy = Enemy.Create(transform, masterID, charaID);
 
 		// 到達した時
 		Action onEndMove = () => enemy.StartOpening();

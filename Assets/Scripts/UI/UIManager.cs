@@ -29,14 +29,21 @@ public class UIManager : MonoBehaviour
 	// マップ名表示
 	[SerializeField] private Text m_mapTitleText;
 
+	// 敵味方情報リストパネル
+	[SerializeField] private StatusPanels m_statusPanels;
+
 	// InfoPanels
 	[SerializeField] private AbilityPanel m_abilityPanel;
 	[SerializeField] private TrainingPanel m_trainingPanel;
 	[SerializeField] private MapPanel m_mapPanel;
+	// UIのキャッシュ保持クラス
+	private UICache m_uiCache = new UICache();
 
 	private MainPanelType m_currentPanelType = MainPanelType.Off;
 
 	private const string GOLD_TEXT_HEADER = "G: ";
+	// プレハブパス
+	private const string HEALTH_BAR_PREFAB_PATH = "Prefabs/UI/HealthBar";
 
 	private void Awake()
 	{
@@ -110,6 +117,19 @@ public class UIManager : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// 敵味方情報リストパネル更新
+	/// </summary>
+	public void UpdateStatusPanels(StatusVO vo)
+	{
+		m_statusPanels.SetData(vo);
+	}
+
+	public void DeleteStatusPanelsContent(StatusVO vo)
+	{
+		m_statusPanels.DeleteContent(vo);
+	}
+
 	public RectTransform GetMainCanvasRect()
 	{
 		return m_mainCanvasRect;
@@ -123,5 +143,15 @@ public class UIManager : MonoBehaviour
 	public Camera GetUICamera()
 	{
 		return m_uiCamera;
+	}
+
+	public HealthBar LoadHealthBarPrefab()
+	{
+		return m_uiCache.HealthBar ?? (m_uiCache.HealthBar = Resources.Load<HealthBar>(HEALTH_BAR_PREFAB_PATH));
+	}
+
+	private class UICache
+	{
+		public HealthBar HealthBar { get; set; }
 	}
 }

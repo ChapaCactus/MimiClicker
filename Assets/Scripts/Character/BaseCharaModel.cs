@@ -100,6 +100,7 @@ public abstract class BaseCharaModel : MonoBehaviour
 		if (Health >= 1)
 		{
 			Health -= damage;
+			UpdateStatusPanel();
 
 			if (Health <= 0)
 			{
@@ -109,6 +110,12 @@ public abstract class BaseCharaModel : MonoBehaviour
 				onDiedThisChara(m_statusVO);
 			}
 		}
+	}
+
+	protected void UpdateStatusPanel()
+	{
+		// 情報パネル更新
+		UIController.I.UpdateStatusPanels(m_statusVO);
 	}
 
 	/// <summary>
@@ -137,6 +144,8 @@ public abstract class BaseCharaModel : MonoBehaviour
 
 	private void Dead()
 	{
+		UIController.I.DeleteStatusPanelsContent(m_statusVO);
+
 		m_onDead();
 	}
 
@@ -157,6 +166,9 @@ public abstract class BaseCharaModel : MonoBehaviour
 /// </summary>
 public class StatusVO
 {
+	public int id;
+	public bool isEnemy;
+
 	public string name;
 
 	public int gainExp;// 倒した時に得る経験値
@@ -173,6 +185,8 @@ public class StatusVO
 	public static StatusVO Create()
 	{
 		var vo = new StatusVO();
+		vo.id = -1;
+		vo.isEnemy = false;
 		vo.name = "";
 		vo.gainExp = 0;
 		vo.level = 1;
