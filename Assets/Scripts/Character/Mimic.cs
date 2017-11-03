@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+using MMCL.DTO;
+using MMCL.VO;
+
 public class Mimic : BaseCharaModel
 {
 	public enum State
@@ -15,9 +18,6 @@ public class Mimic : BaseCharaModel
 	}
 
 	public int ChargePower { get; private set; }
-
-	// トレーニングにかかるコスト
-	public int TrainingCost { get { return (int)(Level * 1.5f); } }
 
 	private State m_currentState = State.None;
 
@@ -62,7 +62,7 @@ public class Mimic : BaseCharaModel
 		return mimic;
 	}
 
-	public override void Damage(int damage, Action<StatusVO> onDiedThisChara)
+	public override void Damage(int damage, Action<StatusDTO> onDiedThisChara)
 	{
 		base.Damage(damage, onDiedThisChara);
 
@@ -83,10 +83,10 @@ public class Mimic : BaseCharaModel
 	{
 		var gold = GlobalGameData.Gold;
 
-		if (gold >= TrainingCost)
+		if (gold >= Status.TrainingCost)
 		{
-			Level++;
-			GlobalGameData.UseGold(TrainingCost);
+			Status.Level++;
+			GlobalGameData.UseGold(Status.TrainingCost);
 
 			success();
 		}
@@ -101,14 +101,17 @@ public class Mimic : BaseCharaModel
 	/// </summary>
 	private void Init()
 	{
-		m_statusVO = StatusVO.Create();
-		m_statusVO.isEnemy = false;
-		m_statusVO.id = -100;
+		var vo = StatusVO.Create();
+		vo.isEnemy = false;
+		vo.worldID = -100;
 
 		// test
-		m_statusVO.name = "ミミックちゃん";
-		m_statusVO.maxHealth = 10;
-		m_statusVO.health = 10;
+		vo.name = "ミミックちゃん";
+		vo.maxHealth = 10;
+		vo.health = 10;
+
+		Status = new StatusDTO();
+		Status.SetVO(vo);
 
 		base.UpdateStatusPanel();
 	}
@@ -118,9 +121,9 @@ public class Mimic : BaseCharaModel
 		return GameController.I.GetEnemy();
 	}
 
-	protected override void OnKilledTarget(StatusVO killedCharaVO)
+	protected override void OnKilledTarget(StatusDTO killedCharaDTO)
 	{
-		Debug.Log(killedCharaVO.name + "を倒した！！ 戦闘に勝利した！！");
+		Debug.Log(killedCharaDTO.Name + "を倒した！！ 戦闘に勝利した！！");
 
 		m_currentState = State.Wait;
 	}

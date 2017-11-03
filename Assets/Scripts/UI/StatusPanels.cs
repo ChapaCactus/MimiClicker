@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+using MMCL.DTO;
+
 public class StatusPanels : MonoBehaviour
 {
 	[SerializeField] private EnemyStatusContent m_contentPrefab;
@@ -13,33 +15,33 @@ public class StatusPanels : MonoBehaviour
 
 	private Dictionary<int, EnemyStatusContent> m_statusContentDic = new Dictionary<int, EnemyStatusContent>();
 
-	public void SetData(StatusVO vo)
+	public void SetData(StatusDTO dto)
 	{
-		if(m_statusContentDic.ContainsKey(vo.id))
+		if(m_statusContentDic.ContainsKey(dto.WorldID))
 		{
 			// 登録済の場合は更新
-			var content = m_statusContentDic[vo.id];
-			content.SetName(vo.name);
-			content.SetHealth(vo.isEnemy, vo.maxHealth, vo.health);
+			var content = m_statusContentDic[dto.WorldID];
+			content.SetName(dto.Name);
+			content.SetHealth(dto.IsEnemy, dto.MaxHealth, dto.Health);
 		} else
 		{
 			// 登録されていないIDの場合は新たに作成
-			CreateContent(vo, (content) => {
-				content.Setup(vo.id);
-				content.SetName(vo.name);
-				content.SetHealth(vo.isEnemy, vo.maxHealth, vo.health);
-				m_statusContentDic.Add(vo.id, content);
+			CreateContent(dto, (content) => {
+				content.Setup(dto.WorldID);
+				content.SetName(dto.Name);
+				content.SetHealth(dto.IsEnemy, dto.MaxHealth, dto.Health);
+				m_statusContentDic.Add(dto.WorldID, content);
 			});
 		}
 	}
 
-	public void DeleteContent(StatusVO vo)
+	public void DeleteContent(StatusDTO dto)
 	{
-		if(m_statusContentDic.ContainsKey(vo.id))
+		if(m_statusContentDic.ContainsKey(dto.WorldID))
 		{
-			var content = m_statusContentDic[vo.id];
+			var content = m_statusContentDic[dto.WorldID];
 			Destroy(content.gameObject);
-			m_statusContentDic[vo.id] = null;
+			m_statusContentDic[dto.WorldID] = null;
 		} else
 		{
 			// 既に存在しないIDなら何もしない
@@ -49,10 +51,10 @@ public class StatusPanels : MonoBehaviour
 	/// <summary>
 	/// 情報パネル作成
 	/// </summary>
-	private void CreateContent(StatusVO vo, Action<EnemyStatusContent> callback)
+	private void CreateContent(StatusDTO dto, Action<EnemyStatusContent> callback)
 	{
 		var prefab = m_contentPrefab;
-		var parent = vo.isEnemy ? m_enemyStatusParent : m_playerStatusParent;
+		var parent = dto.IsEnemy ? m_enemyStatusParent : m_playerStatusParent;
 		var content = Instantiate<EnemyStatusContent>(prefab, parent);
 
 		callback(content);

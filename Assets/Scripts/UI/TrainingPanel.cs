@@ -72,12 +72,12 @@ public class TrainingPanel : MonoBehaviour
 
 	private int GetCurrentLevel()
 	{
-		return GetMainMimic().Level;
+		return GetMainMimic().Status.Level;
 	}
 
 	private int GetTrainingCost()
 	{
-		return GetMainMimic().TrainingCost;
+		return GetMainMimic().Status.TrainingCost;
 	}
 
 	private int GetGold()

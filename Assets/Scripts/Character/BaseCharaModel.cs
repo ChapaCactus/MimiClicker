@@ -6,69 +6,16 @@ using UnityEngine;
 
 using Google2u;
 
+using MMCL.DTO;
+
 public abstract class BaseCharaModel : MonoBehaviour
 {
-	[SerializeField] protected StatusVO m_statusVO;
+	public StatusDTO Status { get; protected set; }
 
 	private Action m_onDead;
 
 	// アイテムドロップの開始点
 	[SerializeField] private Transform m_itemDropStartPos;
-
-	// レベル
-	public int Level
-	{
-		get { return m_statusVO.level; }
-		protected set
-		{
-			m_statusVO.level = value;
-			if (m_statusVO.level < 0) m_statusVO.level = 0;
-		}
-	}
-
-	// 最大HP
-	public int MaxHealth
-	{
-		get { return m_statusVO.maxHealth; }
-		protected set
-		{
-			m_statusVO.maxHealth = value;
-			if (m_statusVO.maxHealth < 0) m_statusVO.maxHealth = 0;
-		}
-	}
-
-	// HP
-	public int Health
-	{
-		get { return m_statusVO.health; }
-		protected set
-		{
-			m_statusVO.health = value;
-			if (m_statusVO.health < 0) m_statusVO.health = 0;
-		}
-	}
-
-	// 攻撃力
-	public int ATK
-	{
-		get { return m_statusVO.atk; }
-		protected set
-		{
-			m_statusVO.atk = value;
-			if (m_statusVO.atk < 0) m_statusVO.atk = 0;
-		}
-	}
-
-	// 防御力
-	public int DEF
-	{
-		get { return m_statusVO.def; }
-		protected set
-		{
-			m_statusVO.def = value;
-			if (m_statusVO.def < 0) m_statusVO.def = 0;
-		}
-	}
 
 	public void SetDeadCallback(Action onDead)
 	{
@@ -95,19 +42,18 @@ public abstract class BaseCharaModel : MonoBehaviour
 	/// ダメージを受ける
 	/// </summary>
 	/// <param name="onDiedThisChara">このダメージで死亡したか、その場合死亡したキャラデータを返す</param>
-	public virtual void Damage(int damage, Action<StatusVO> onDiedThisChara)
+	public virtual void Damage(int damage, Action<StatusDTO> onDiedThisChara)
 	{
-		if (Health >= 1)
+		if (Status.Health >= 1)
 		{
-			Health -= damage;
+			Status.Health -= damage;
 			UpdateStatusPanel();
 
-			if (Health <= 0)
+			if (Status.Health <= 0)
 			{
-				Health = 0;
 				// 死亡処理
 				Dead();
-				onDiedThisChara(m_statusVO);
+				onDiedThisChara(Status);
 			}
 		}
 	}
@@ -115,7 +61,7 @@ public abstract class BaseCharaModel : MonoBehaviour
 	protected void UpdateStatusPanel()
 	{
 		// 情報パネル更新
-		UIController.I.UpdateStatusPanels(m_statusVO);
+		UIController.I.UpdateStatusPanels(Status);
 	}
 
 	/// <summary>
@@ -127,7 +73,7 @@ public abstract class BaseCharaModel : MonoBehaviour
 
 		if(target != null)
 		{
-			target.Damage(ATK, (killed) => OnKilledTarget(killed));
+			target.Damage(Status.ATK, (killed) => OnKilledTarget(killed));
 		} else
 		{
 			Debug.Log("対象が居ません。");
@@ -140,11 +86,11 @@ public abstract class BaseCharaModel : MonoBehaviour
 	/// 対象を殺した時の処理(abstract)
 	/// </summary>
 	/// <param name="killedCharaVO">殺したキャラのデータ</param>
-	protected abstract void OnKilledTarget(StatusVO killedCharaVO);
+	protected abstract void OnKilledTarget(StatusDTO killedCharaDTO);
 
 	private void Dead()
 	{
-		UIController.I.DeleteStatusPanelsContent(m_statusVO);
+		UIController.I.DeleteStatusPanelsContent(Status);
 
 		m_onDead();
 	}
@@ -157,44 +103,5 @@ public abstract class BaseCharaModel : MonoBehaviour
 		var randomVec = new Vector3(randomX, randomY, randomZ);
 
 		return randomVec;
-	}
-}
-
-[Serializable]
-/// <summary>
-/// キャラのステータスデータクラス
-/// </summary>
-public class StatusVO
-{
-	public int id;
-	public bool isEnemy;
-
-	public string name;
-
-	public int gainExp;// 倒した時に得る経験値
-
-	public int level;
-
-	public int maxHealth, health;
-	public int atk;
-	public int def;
-
-	/// <summary>
-	/// ゲーム用に初期化されたデータを取得
-	/// </summary>
-	public static StatusVO Create()
-	{
-		var vo = new StatusVO();
-		vo.id = -1;
-		vo.isEnemy = false;
-		vo.name = "";
-		vo.gainExp = 0;
-		vo.level = 1;
-		vo.maxHealth = 1;
-		vo.health = 1;
-		vo.atk = 1;
-		vo.def = 1;
-
-		return vo;
 	}
 }

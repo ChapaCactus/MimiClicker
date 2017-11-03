@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using MMCL.DTO;
+
 [RequireComponent(typeof(UIController))]
 /// <summary>
 /// UIマネージャ
@@ -120,14 +122,14 @@ public class UIManager : MonoBehaviour
 	/// <summary>
 	/// 敵味方情報リストパネル更新
 	/// </summary>
-	public void UpdateStatusPanels(StatusVO vo)
+	public void UpdateStatusPanels(StatusDTO dto)
 	{
-		m_statusPanels.SetData(vo);
+		m_statusPanels.SetData(dto);
 	}
 
-	public void DeleteStatusPanelsContent(StatusVO vo)
+	public void DeleteStatusPanelsContent(StatusDTO dto)
 	{
-		m_statusPanels.DeleteContent(vo);
+		m_statusPanels.DeleteContent(dto);
 	}
 
 	public RectTransform GetMainCanvasRect()

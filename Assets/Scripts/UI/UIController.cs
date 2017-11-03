@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+using MMCL.DTO;
+
 [RequireComponent(typeof(UIManager))]
 public class UIController : SingletonMonoBehaviour<UIController>
 {
@@ -54,13 +56,13 @@ public class UIController : SingletonMonoBehaviour<UIController>
 		return m_uiManager.LoadHealthBarPrefab();
 	}
 
-	public void UpdateStatusPanels(StatusVO vo)
+	public void UpdateStatusPanels(StatusDTO dto)
 	{
-		m_uiManager.UpdateStatusPanels(vo);
+		m_uiManager.UpdateStatusPanels(dto);
 	}
 
-	public void DeleteStatusPanelsContent(StatusVO vo)
+	public void DeleteStatusPanelsContent(StatusDTO dto)
 	{
-		m_uiManager.DeleteStatusPanelsContent(vo);
+		m_uiManager.DeleteStatusPanelsContent(dto);
 	}
 }

@@ -8,6 +8,9 @@ using DG.Tweening;
 
 using Google2u;
 
+using MMCL.DTO;
+using MMCL.VO;
+
 public class Enemy : BaseCharaModel
 {
 	public enum State
@@ -68,7 +71,9 @@ public class Enemy : BaseCharaModel
 	public void SetVO(int charaID, EnemyMasterRow master)
 	{
 		// ステータスデータセット
-		m_statusVO = CreateStatusVOFromMaster(charaID, master);
+		var vo = CreateStatusVOFromMaster(charaID, master);
+		Status = new StatusDTO();
+		Status.SetVO(vo);
 
 		base.UpdateStatusPanel();
 	}
@@ -146,7 +151,7 @@ public class Enemy : BaseCharaModel
 		return GameController.I.GetMainMimic();
 	}
 
-	protected override void OnKilledTarget(StatusVO killedCharaVO)
+	protected override void OnKilledTarget(StatusDTO killedCharaDTO)
 	{
 		// NOTE - 敵がMimicを倒した時... 立ち去る
 		ChangeState(State.Away);
@@ -158,7 +163,7 @@ public class Enemy : BaseCharaModel
 	private StatusVO CreateStatusVOFromMaster(int charaID, EnemyMasterRow master)
 	{
 		var statusVO = new StatusVO();
-		statusVO.id = charaID;
+		statusVO.worldID = charaID;
 		statusVO.isEnemy = true;
 		statusVO.name = master._Name;
 		statusVO.gainExp = master._GainExp;
