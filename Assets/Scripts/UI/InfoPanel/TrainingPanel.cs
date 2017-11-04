@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TrainingPanel : MonoBehaviour
+public class TrainingPanel : BaseInfoPanel
 {
 	[SerializeField] private Button m_trainingButton;
 
@@ -18,21 +18,6 @@ public class TrainingPanel : MonoBehaviour
 		m_trainingButton.onClick.AddListener(OnTapTraining);
 	}
 
-	public void Show(bool active)
-	{
-		if (active)
-		{
-			// 表示
-			OnOpen();
-			gameObject.SetActive(true);
-		}
-		else
-		{
-			// 非表示
-			gameObject.SetActive(false);
-		}
-	}
-
 	public void OnTapTraining()
 	{
 		GetMainMimic().Training(OnTrainingSuccess, OnTrainingFailure);
@@ -41,7 +26,7 @@ public class TrainingPanel : MonoBehaviour
 	/// <summary>
 	/// 各種テキスト更新
 	/// </summary>
-	public void UpdateUITexts()
+	public override void UpdateUITexts()
 	{
 		int level = GetCurrentLevel();
 		int trainingCost = GetTrainingCost();
@@ -63,11 +48,6 @@ public class TrainingPanel : MonoBehaviour
 	{
 		UpdateUITexts();
 		UIController.I.UpdateUITexts();
-	}
-
-	private void OnOpen()
-	{
-		UpdateUITexts();
 	}
 
 	private int GetCurrentLevel()

@@ -9,6 +9,7 @@ namespace MMCL.DTO
 		private InventoryVO m_vo;
 		private ItemDTO[] m_itemSlots;
 
+		public ItemDTO[] ItemSlots { get { return m_itemSlots; } }
 		public int MaxSize { get { return m_vo.MaxSize; } }
 
 		public void SetVO(InventoryVO vo)
