@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
 	public enum MainPanelType
 	{
 		Off,
+		Inventory,
 		Ability,
 		Training,
 		Map
@@ -35,6 +36,7 @@ public class UIManager : MonoBehaviour
 	[SerializeField] private StatusPanels m_statusPanels;
 
 	// InfoPanels
+	[SerializeField] private InventoryPanel m_inventoryPanel;
 	[SerializeField] private AbilityPanel m_abilityPanel;
 	[SerializeField] private TrainingPanel m_trainingPanel;
 	[SerializeField] private MapPanel m_mapPanel;
@@ -87,21 +89,32 @@ public class UIManager : MonoBehaviour
 			switch (type)
 			{
 				case MainPanelType.Off:
+					m_inventoryPanel.gameObject.SetActive(false);
 					m_abilityPanel.gameObject.SetActive(false);
 					m_trainingPanel.Show(false);
 					m_mapPanel.gameObject.SetActive(false);
 					break;
+				case MainPanelType.Inventory:
+					m_inventoryPanel.gameObject.SetActive(true);
+					m_abilityPanel.gameObject.SetActive(false);
+					m_trainingPanel.Show(false);
+					m_mapPanel.gameObject.SetActive(false);
+					break;
+					
 				case MainPanelType.Ability:
+					m_inventoryPanel.gameObject.SetActive(false);
 					m_abilityPanel.gameObject.SetActive(true);
 					m_trainingPanel.Show(false);
 					m_mapPanel.gameObject.SetActive(false);
 					break;
 				case MainPanelType.Training:
+					m_inventoryPanel.gameObject.SetActive(false);
 					m_abilityPanel.gameObject.SetActive(false);
 					m_trainingPanel.Show(true);
 					m_mapPanel.gameObject.SetActive(false);
 					break;
 				case MainPanelType.Map:
+					m_inventoryPanel.gameObject.SetActive(false);
 					m_abilityPanel.gameObject.SetActive(false);
 					m_trainingPanel.Show(false);
 					m_mapPanel.gameObject.SetActive(true);
@@ -111,6 +124,7 @@ public class UIManager : MonoBehaviour
 		else
 		{
 			// 表示しているグループと同じグループが指定されたら、全てオフる
+			m_inventoryPanel.gameObject.SetActive(false);
 			m_abilityPanel.gameObject.SetActive(false);
 			m_trainingPanel.Show(false);
 			m_mapPanel.gameObject.SetActive(false);

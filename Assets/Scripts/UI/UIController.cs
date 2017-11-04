@@ -36,6 +36,11 @@ public class UIController : SingletonMonoBehaviour<UIController>
 		return m_uiManager.GetUICamera();
 	}
 
+	public void OnClickInventoryPanel()
+	{
+		m_uiManager.ToggleMainPanel(UIManager.MainPanelType.Inventory);
+	}
+
 	public void OnClickAbilityPanel()
 	{
 		m_uiManager.ToggleMainPanel(UIManager.MainPanelType.Ability);
