@@ -8,6 +8,6 @@ namespace MMCL.VO
 	/// </summary>
 	public class InventoryVO
 	{
-		public int Size { get; set; }
+		public int MaxSize { get; set; }
 	}
 }
