@@ -144,6 +144,10 @@ public static class GlobalGameData
 		var newData = new InventoryVO();
 		newData.MaxSize = 24;
 		newData.ItemSlots = new ItemVO[24];
+		for (int i = 0; i < newData.MaxSize; i++)
+		{
+			newData.ItemSlots[i] = ItemVO.Create();
+		}
 
 		return newData;
 	}

@@ -89,32 +89,32 @@ public class UIManager : MonoBehaviour
 			switch (type)
 			{
 				case MainPanelType.Off:
-					m_inventoryPanel.gameObject.SetActive(false);
+					m_inventoryPanel.Show(false);
 					m_abilityPanel.gameObject.SetActive(false);
 					m_trainingPanel.Show(false);
 					m_mapPanel.gameObject.SetActive(false);
 					break;
 				case MainPanelType.Inventory:
-					m_inventoryPanel.gameObject.SetActive(true);
+					m_inventoryPanel.Show(true);
 					m_abilityPanel.gameObject.SetActive(false);
 					m_trainingPanel.Show(false);
 					m_mapPanel.gameObject.SetActive(false);
 					break;
 					
 				case MainPanelType.Ability:
-					m_inventoryPanel.gameObject.SetActive(false);
+					m_inventoryPanel.Show(false);
 					m_abilityPanel.gameObject.SetActive(true);
 					m_trainingPanel.Show(false);
 					m_mapPanel.gameObject.SetActive(false);
 					break;
 				case MainPanelType.Training:
-					m_inventoryPanel.gameObject.SetActive(false);
+					m_inventoryPanel.Show(false);
 					m_abilityPanel.gameObject.SetActive(false);
 					m_trainingPanel.Show(true);
 					m_mapPanel.gameObject.SetActive(false);
 					break;
 				case MainPanelType.Map:
-					m_inventoryPanel.gameObject.SetActive(false);
+					m_inventoryPanel.Show(false);
 					m_abilityPanel.gameObject.SetActive(false);
 					m_trainingPanel.Show(false);
 					m_mapPanel.gameObject.SetActive(true);

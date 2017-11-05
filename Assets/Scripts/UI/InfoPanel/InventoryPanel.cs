@@ -25,7 +25,7 @@ public class InventoryPanel : BaseInfoPanel
 	/// </summary>
 	private void CreateInventoryContents(InventoryDTO inventory)
 	{
-		m_itemIcons = new ItemIcon[inventory.MaxSize];
+		m_itemIcons = new ItemIcon[inventory.ItemSlots.Length];
 
 		for (int i = 0; i < m_itemIcons.Length; i++)
 		{
@@ -48,6 +48,6 @@ public class InventoryPanel : BaseInfoPanel
 
 	private InventoryDTO GetInventory()
 	{
-		return new InventoryDTO();
+		return GlobalGameData.InventoryDTO;
 	}
 }

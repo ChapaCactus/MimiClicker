@@ -13000,7 +13000,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc59114cfb5b240d6815a99dd992a8f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_itemIconPrefab: {fileID: 0}
+  m_itemIconPrefab: {fileID: 114439953553741462, guid: a2045ca3fcd044f0890a94dd3b3dcb4d,
+    type: 2}
+  m_itemIconsParent: {fileID: 90027805}
 --- !u!1001 &1796879566
 Prefab:
   m_ObjectHideFlags: 0

@@ -11,8 +11,6 @@ public abstract class BaseInfoPanel : MonoBehaviour
 			OnShow();
 			// 表示
 			gameObject.SetActive(true);
-
-
 		}
 		else
 		{

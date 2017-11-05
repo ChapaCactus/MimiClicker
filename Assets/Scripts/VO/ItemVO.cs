@@ -17,7 +17,7 @@ namespace MMCL.VO
 		public int Quantity { get; set; }
 		public string Description { get; set; }
 
-		public void Create(Action<ItemVO> callback)
+		public static ItemVO Create()
 		{
 			var vo = new ItemVO();
 			vo.MasterID = 0;
@@ -29,7 +29,7 @@ namespace MMCL.VO
 			vo.Quantity = 0;
 			vo.Description = "";
 
-			callback.Call(vo);
+			return vo;
 		}
 	}
 }
