@@ -1,16 +1,53 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.UI;
 
-public class InventoryPanel : MonoBehaviour {
+using MMCL.DTO;
 
-	// Use this for initialization
-	void Start () {
-		
+/// <summary>
+/// インベントリのViewクラス
+/// </summary>
+public class InventoryPanel : BaseInfoPanel
+{
+	[SerializeField] private ItemIcon m_itemIconPrefab;
+	[SerializeField] private Transform m_itemIconsParent;
+
+	private ItemIcon[] m_itemIcons = null;
+
+	public override void UpdateUITexts()
+	{
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	/// <summary>
+	/// インベントリ用スロットを作成する
+	/// </summary>
+	private void CreateInventoryContents(InventoryDTO inventory)
+	{
+		m_itemIcons = new ItemIcon[inventory.MaxSize];
+
+		for (int i = 0; i < m_itemIcons.Length; i++)
+		{
+			var icon = Instantiate<ItemIcon>(m_itemIconPrefab, m_itemIconsParent);
+			icon.Setup(inventory.ItemSlots[i]);
+			m_itemIcons[i] = icon;
+		}
+	}
+
+	protected override void OnShow()
+	{
+		if(m_itemIcons == null)
+		{
+			CreateInventoryContents(GetInventory());
+		} else
+		{
+			UpdateUITexts();
+		}
+	}
+
+	private InventoryDTO GetInventory()
+	{
+		return new InventoryDTO();
 	}
 }

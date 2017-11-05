@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+
+using UnityEngine;
 
 using MMCL.VO;
 
@@ -15,6 +18,17 @@ namespace MMCL.DTO
 		public void SetVO(InventoryVO vo)
 		{
 			m_vo = vo;
+
+			CreateItemDTO(vo.ItemSlots, (dtos) =>
+			{
+				m_itemSlots = dtos;
+			});
+		}
+
+		// セーブ・ロード用
+		public string ConvertDataObject()
+		{
+			return JsonUtility.ToJson(m_vo);
 		}
 
 		/// <summary>
@@ -24,9 +38,9 @@ namespace MMCL.DTO
 		public int GetUsedSlotCount()
 		{
 			int count = 0;
-			foreach(var slot in m_itemSlots)
+			foreach (var slot in ItemSlots)
 			{
-				if(slot != null)
+				if (slot != null)
 				{
 					// 使用中ならカウント
 					count++;
@@ -52,19 +66,21 @@ namespace MMCL.DTO
 		public void TryAddItem(ItemDTO item, Action success, Action failure)
 		{
 			var collectableSlotIndex = CheckCollectableSlot(item);
-			if(collectableSlotIndex != -1)
+			if (collectableSlotIndex != -1)
 			{
 				// 加算
 				Add(collectableSlotIndex, item, success);
-			} else
+			}
+			else
 			{
 				// NOTE - 加算できなかった場合、新規追加出来るスロットを探す
 				var emptySlotIndex = CheckEmptySlot();
-				if(emptySlotIndex != -1)
+				if (emptySlotIndex != -1)
 				{
 					// 追加
 					Add(emptySlotIndex, item, success);
-				} else
+				}
+				else
 				{
 					// NOTE - 同種アイテム所持しておらず、空きスロットも無いなら追加失敗
 					failure.Call();
@@ -74,12 +90,13 @@ namespace MMCL.DTO
 
 		private void Add(int index, ItemDTO item, Action onComplete)
 		{
-			if(m_itemSlots[index] != null)
+			if (m_itemSlots[index] != null)
 			{
 				// NOTE - 既に存在するなら数をインクリメント
 				m_itemSlots[index].Increment();
 				onComplete.Call();
-			} else
+			}
+			else
 			{
 				// NOTE - 存在しないなら新規追加
 				m_itemSlots[index] = item;
@@ -110,7 +127,7 @@ namespace MMCL.DTO
 		{
 			for (int index = 0; index < m_itemSlots.Length; index++)
 			{
-				if(m_itemSlots[index] == null)
+				if (m_itemSlots[index] == null)
 				{
 					return index;
 				}
@@ -144,6 +161,20 @@ namespace MMCL.DTO
 
 			// 同じアイテムを所持していない or 同種アイテムが全て所持数上限に達している
 			return -1;
+		}
+
+		private void CreateItemDTO(ItemVO[] items, Action<ItemDTO[]> callback)
+		{
+			var res = new List<ItemDTO>();
+
+			foreach (var item in items)
+			{
+				var dto = new ItemDTO();
+				dto.SetVO(item);
+				res.Add(dto);
+			}
+
+			callback(res.ToArray());
 		}
 	}
 }

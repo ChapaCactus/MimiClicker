@@ -8,10 +8,11 @@ public abstract class BaseInfoPanel : MonoBehaviour
 	{
 		if (active)
 		{
-			// UI更新
-			UpdateUITexts();
+			OnShow();
 			// 表示
 			gameObject.SetActive(true);
+
+
 		}
 		else
 		{
@@ -21,4 +22,6 @@ public abstract class BaseInfoPanel : MonoBehaviour
 	}
 
 	public abstract void UpdateUITexts();
+
+	protected abstract void OnShow();
 }

@@ -50,6 +50,10 @@ public class TrainingPanel : BaseInfoPanel
 		UIController.I.UpdateUITexts();
 	}
 
+	protected override void OnShow()
+	{
+	}
+
 	private int GetCurrentLevel()
 	{
 		return GetMainMimic().Status.Level;

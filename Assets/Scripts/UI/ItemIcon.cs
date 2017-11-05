@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using MMCL.DTO;
+
 public class ItemIcon : MonoBehaviour
 {
 	[SerializeField]
@@ -17,4 +19,9 @@ public class ItemIcon : MonoBehaviour
 
 	[SerializeField]
 	private Button m_button;
+
+	public void Setup(ItemDTO item)
+	{
+		m_quantityText.text = item.Quantity.ToString();
+	}
 }

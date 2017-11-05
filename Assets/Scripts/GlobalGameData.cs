@@ -4,13 +4,24 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+using MMCL.VO;
+using MMCL.DTO;
+
 /// <summary>
 /// ゲーム全体で扱うデータクラス
 /// </summary>
 public static class GlobalGameData
 {
 	// ユーザデータ
-	private static UserVO m_userVO;
+	private static UserVO m_userVO = null;
+
+	// 所持品データ
+	private static InventoryDTO m_inventoryDTO = null;
+
+	private static readonly string USERDATA_KEY = "UserData";
+	private static readonly string INVENTORY_KEY = "Inventory";
+
+	public static InventoryDTO InventoryDTO { get { return m_inventoryDTO; } }
 
 	// 所持金
 	public static int Gold
@@ -34,16 +45,17 @@ public static class GlobalGameData
 		}
 	}
 
-	private static readonly string USERDATA_KEY = "UserData";
-
 	/// <summary>
 	/// データセーブ
 	/// </summary>
 	/// <param name="onComplete">セーブ完了時</param>
 	public static void Save(Action onComplete)
 	{
+		// ユーザデータセーブ
 		var dataObject = JsonUtility.ToJson(m_userVO);
 		ES2.Save(dataObject, USERDATA_KEY);
+		var inventoryObject = m_inventoryDTO.ConvertDataObject();
+		ES2.Save(inventoryObject, INVENTORY_KEY);
 		onComplete();
 	}
 
@@ -53,6 +65,7 @@ public static class GlobalGameData
 	/// <param name="onComplete">ロード完了時</param>
 	public static void Load(Action onComplete)
 	{
+		// ユーザーデータのロード
 		if (ES2.Exists(USERDATA_KEY))
 		{
 			var dataObject = ES2.Load<string>(USERDATA_KEY);
@@ -62,6 +75,23 @@ public static class GlobalGameData
 		{
 			// セーブデータが無い場合は作成する
 			m_userVO = GetNewUserVO();
+		}
+
+		// 所持品データのロード
+		if (ES2.Exists(INVENTORY_KEY))
+		{
+			var dataObject = ES2.Load<string>(INVENTORY_KEY);
+			var vo = JsonUtility.FromJson<InventoryVO>(dataObject);
+			var dto = new InventoryDTO();
+			dto.SetVO(vo);
+			m_inventoryDTO = dto;
+		}
+		else
+		{
+			var vo = GetNewInventoryVO();
+			var dto = new InventoryDTO();
+			dto.SetVO(vo);
+			m_inventoryDTO = dto;
 		}
 
 		onComplete();
@@ -108,11 +138,13 @@ public static class GlobalGameData
 
 		return newData;
 	}
-}
 
-[Serializable]
-public class UserVO
-{
-	public int gold;
-	public int totalGold;
+	private static InventoryVO GetNewInventoryVO()
+	{
+		var newData = new InventoryVO();
+		newData.MaxSize = 24;
+		newData.ItemSlots = new ItemVO[24];
+
+		return newData;
+	}
 }
