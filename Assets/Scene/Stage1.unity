@@ -532,88 +532,6 @@ MonoBehaviour:
   m_Spacing: {x: 6.7, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 4
---- !u!1 &91307321
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 91307323}
-  - component: {fileID: 91307322}
-  m_Layer: 0
-  m_Name: Google2uDatabase
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &91307322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 91307321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e65eb0007369348c795fb3a70d3bbcab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rowNames:
-  - Enemy_001
-  - Enemy_002
-  - Enemy_003
-  - Enemy_004
-  - Enemy_005
-  Rows:
-  - _Name: "\u3059\u3089\u3044\u307F\u30FC"
-    _HP: 10
-    _ATK: 3
-    _DEF: 1
-    _GainExp: 1
-    _Explain: "\u3077\u308B\u3077\u308B"
-    _Model: xxx
-  - _Name: "\u3069\u3089\u304F\u30FC"
-    _HP: 10
-    _ATK: 3
-    _DEF: 1
-    _GainExp: 2
-    _Explain: "\u3077\u308B\u3077\u308B"
-    _Model: xxx
-  - _Name: "\u304E\u304C\u3093\u3068\u3059"
-    _HP: 10
-    _ATK: 3
-    _DEF: 1
-    _GainExp: 3
-    _Explain: "\u3077\u308B\u3077\u308B"
-    _Model: xxx
-  - _Name: "\u3069\u3089\u304C\u3093"
-    _HP: 10
-    _ATK: 3
-    _DEF: 1
-    _GainExp: 4
-    _Explain: "\u3077\u308B\u3077\u308B"
-    _Model: xxx
-  - _Name: "\u306F\u30FC\u304C\u3093"
-    _HP: 10
-    _ATK: 3
-    _DEF: 1
-    _GainExp: 5
-    _Explain: "\u3077\u308B\u3077\u308B"
-    _Model: xxx
---- !u!4 &91307323
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 91307321}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &96002866 stripped
 Transform:
   m_PrefabParentObject: {fileID: 435090, guid: 748e3028575e29b4f9c8257aec4cbf9e, type: 2}
@@ -3387,7 +3305,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e21dad52f7a644fc90128f8757a7476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_enemyMaster: {fileID: 91307322}
+  m_itemMaster: {fileID: 1363101284}
+  m_enemyMaster: {fileID: 1363101283}
 --- !u!4 &467868675
 Transform:
   m_ObjectHideFlags: 0
@@ -9736,6 +9655,142 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 483478, guid: ce1b1c89cc01b594b97ffd660fb7409e, type: 2}
   m_PrefabInternal: {fileID: 312899008}
+--- !u!1 &1363101282
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1363101285}
+  - component: {fileID: 1363101284}
+  - component: {fileID: 1363101283}
+  m_Layer: 0
+  m_Name: Google2uDatabase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1363101283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1363101282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e65eb0007369348c795fb3a70d3bbcab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rowNames:
+  - Enemy_001
+  - Enemy_002
+  - Enemy_003
+  - Enemy_004
+  - Enemy_005
+  Rows:
+  - _Name: "\u3059\u3089\u3044\u307F\u30FC"
+    _HP: 10
+    _ATK: 3
+    _DEF: 1
+    _GainExp: 1
+    _Explain: "\u3077\u308B\u3077\u308B"
+    _Model: xxx
+  - _Name: "\u3069\u3089\u304F\u30FC"
+    _HP: 10
+    _ATK: 3
+    _DEF: 1
+    _GainExp: 2
+    _Explain: "\u3077\u308B\u3077\u308B"
+    _Model: xxx
+  - _Name: "\u304E\u304C\u3093\u3068\u3059"
+    _HP: 10
+    _ATK: 3
+    _DEF: 1
+    _GainExp: 3
+    _Explain: "\u3077\u308B\u3077\u308B"
+    _Model: xxx
+  - _Name: "\u3069\u3089\u304C\u3093"
+    _HP: 10
+    _ATK: 3
+    _DEF: 1
+    _GainExp: 4
+    _Explain: "\u3077\u308B\u3077\u308B"
+    _Model: xxx
+  - _Name: "\u306F\u30FC\u304C\u3093"
+    _HP: 10
+    _ATK: 3
+    _DEF: 1
+    _GainExp: 5
+    _Explain: "\u3077\u308B\u3077\u308B"
+    _Model: xxx
+--- !u!114 &1363101284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1363101282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d31529b8591454004b2bd8a8c5b23fa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rowNames:
+  - ID_001
+  - ID_002
+  - ID_003
+  - ID_004
+  - ID_005
+  Rows:
+  - _Name: "\u3086\u3067\u305F\u307E\u3054"
+    _Type: Item
+    _HP: 10
+    _ATK: 0
+    _DEF: 0
+    _Explain: "\u3086\u3067\u305F\u3001\u305F\u307E\u3054"
+    _SpriteName: Item_001
+  - _Name: "\u306F\u3058\u307E\u308A\u306E\u3051\u3093"
+    _Type: Weapon
+    _HP: 0
+    _ATK: 30
+    _DEF: 0
+    _Explain: "\u3042\u3093\u304B\u306A\u3001\u3051\u3093"
+    _SpriteName: Item_001
+  - _Name: "\u306F\u3058\u307E\u308A\u306E\u304F\u3064"
+    _Type: Armor
+    _HP: 0
+    _ATK: 0
+    _DEF: 25
+    _Explain: "\u3084\u3059\u3044\u3001\u304F\u3064"
+    _SpriteName: Item_001
+  - _Name: "\u3064\u3088\u3044\u305F\u3066"
+    _Type: Armor
+    _HP: 0
+    _ATK: 0
+    _DEF: 70
+    _Explain: "\u3064\u3088\u3044\u3001\u305F\u3066"
+    _SpriteName: Item_001
+  - _Name: "\u3064\u3088\u3044\u3051\u3093"
+    _Type: Weapon
+    _HP: 0
+    _ATK: 200
+    _DEF: 0
+    _Explain: "\u3064\u3088\u3044\u3001\u3051\u3093"
+    _SpriteName: Item_001
+--- !u!4 &1363101285
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1363101282}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1368495912
 Prefab:
   m_ObjectHideFlags: 0

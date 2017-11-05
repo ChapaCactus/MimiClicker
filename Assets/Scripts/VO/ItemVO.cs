@@ -15,7 +15,6 @@ namespace MMCL.VO
 		public ItemCategory Category { get; set; }
 		public int MaxQuantity { get; set; }
 		public int Quantity { get; set; }
-		public string Description { get; set; }
 
 		public static ItemVO Create()
 		{
@@ -27,7 +26,6 @@ namespace MMCL.VO
 			vo.Category = ItemCategory.None;
 			vo.MaxQuantity = 0;
 			vo.Quantity = 0;
-			vo.Description = "";
 
 			return vo;
 		}

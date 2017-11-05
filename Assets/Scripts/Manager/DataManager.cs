@@ -12,7 +12,14 @@ using Google2u;
 public class DataManager : SingletonMonoBehaviour<DataManager>
 {
 	// NOTE - G2Uは、勝手にInspectorから外れる事があるため注意
+	[SerializeField] private ItemMaster m_itemMaster;
 	[SerializeField] private EnemyMaster m_enemyMaster;
+
+	public void GetItemDataInMaster(ItemMaster.rowIds identifier, Action<ItemMasterRow> callback)
+	{
+		var row = m_itemMaster.GetRow(identifier);
+		callback(row);
+	}
 
 	/// <summary>
 	/// 敵データをマスターから取得
