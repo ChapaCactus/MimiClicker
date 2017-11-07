@@ -142,12 +142,6 @@ public static class GlobalGameData
 	private static InventoryVO GetNewInventoryVO()
 	{
 		var newData = new InventoryVO();
-		newData.MaxSize = 24;
-		newData.ItemSlots = new ItemVO[24];
-		for (int i = 0; i < newData.MaxSize; i++)
-		{
-			newData.ItemSlots[i] = new ItemVO();
-		}
 
 		return newData;
 	}

@@ -26,12 +26,12 @@ public class InventoryPanel : BaseInfoPanel
 	/// </summary>
 	private void CreateInventoryContents(InventoryDTO inventory)
 	{
-		m_itemIcons = new ItemIcon[inventory.ItemSlots.Length];
+		m_itemIcons = new ItemIcon[inventory.Items.Length];
 
 		for (int i = 0; i < m_itemIcons.Length; i++)
 		{
 			var icon = Instantiate<ItemIcon>(m_itemIconPrefab, m_itemIconsParent);
-			icon.Setup(inventory.ItemSlots[i]);
+			icon.Setup(inventory.Items[i]);
 			m_itemIcons[i] = icon;
 		}
 	}
@@ -55,7 +55,7 @@ public class InventoryPanel : BaseInfoPanel
 		var inventory = GetInventory();
 		for (int i = 0; i < m_itemIcons.Length; i++)
 		{
-			var inventoryItem = inventory.ItemSlots[i];
+			var inventoryItem = inventory.Items[i];
 			var icon = m_itemIcons[i];
 			icon.Setup(inventoryItem);
 		}

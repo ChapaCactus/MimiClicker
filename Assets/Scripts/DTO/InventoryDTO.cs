@@ -10,18 +10,17 @@ namespace MMCL.DTO
 	public class InventoryDTO
 	{
 		private InventoryVO m_vo;
-		private ItemDTO[] m_itemSlots;
+		private ItemDTO[] m_items;
 
-		public ItemDTO[] ItemSlots { get { return m_itemSlots; } }
-		public int MaxSize { get { return m_vo.MaxSize; } }
+		public ItemDTO[] Items { get { return m_items; } }
 
 		public void SetVO(InventoryVO vo)
 		{
 			m_vo = vo;
 
-			CreateItemDTOs(vo.ItemSlots, (dtos) =>
+			CreateItemDTOs((dtos) =>
 			{
-				m_itemSlots = dtos;
+				m_items = dtos;
 			});
 		}
 
@@ -38,7 +37,7 @@ namespace MMCL.DTO
 		public int GetUsedSlotCount()
 		{
 			int count = 0;
-			foreach (var slot in ItemSlots)
+			foreach (var slot in Items)
 			{
 				if (slot != null)
 				{
@@ -94,17 +93,17 @@ namespace MMCL.DTO
 
 		private void Add(int index, ItemDTO item, Action onComplete)
 		{
-			if (m_itemSlots[index] != null)
+			if (Items[index] != null)
 			{
 				// NOTE - 既に存在するなら数をインクリメント
 				// NOTE - 所持上限数によって処理を変える必要あり
-				m_itemSlots[index].Increment();
+				Items[index].Increment();
 				onComplete.Call();
 			}
 			else
 			{
 				// NOTE - 存在しないなら新規追加
-				m_itemSlots[index] = item;
+				Items[index] = item;
 				onComplete.Call();
 			}
 		}
@@ -121,7 +120,7 @@ namespace MMCL.DTO
 		/// </summary>
 		private void Remove(int index)
 		{
-			m_itemSlots[index] = null;
+			Items[index] = null;
 		}
 
 		/// <summary>
@@ -130,9 +129,9 @@ namespace MMCL.DTO
 		/// <returns>空きIndex, 空きが見つからなければ-1を返す</returns>
 		private int CheckEmptySlot()
 		{
-			for (int index = 0; index < m_itemSlots.Length; index++)
+			for (int index = 0; index < Items.Length; index++)
 			{
-				if (m_itemSlots[index] == null)
+				if (Items[index].IsEmpty)
 				{
 					return index;
 				}
@@ -148,9 +147,9 @@ namespace MMCL.DTO
 		/// <returns>The collectable slot.</returns>
 		private int CheckCollectableSlot(ItemDTO item)
 		{
-			for (int index = 0; index < m_itemSlots.Length; index++)
+			for (int index = 0; index < Items.Length; index++)
 			{
-				var slot = m_itemSlots[index];
+				var slot = Items[index];
 				if (item.RowID == slot.RowID)
 				{
 					// 同じアイテムIDで
@@ -166,13 +165,13 @@ namespace MMCL.DTO
 			return -1;
 		}
 
-		private void CreateItemDTOs(ItemVO[] items, Action<ItemDTO[]> callback)
+		private void CreateItemDTOs(Action<ItemDTO[]> callback)
 		{
 			var res = new List<ItemDTO>();
 
-			foreach (var item in items)
+			for (int i = 0; i < 24; i++)
 			{
-				ItemDTO.Create(item, dto => {
+				ItemDTO.CreateEmpty(dto => {
 					res.Add(dto);
 				});
 			}
@@ -183,9 +182,9 @@ namespace MMCL.DTO
 		private void Dump()
 		{
 			Debug.Log("My Itemslots Dumping...");
-			for (int i = 0; i < ItemSlots.Length; i++)
+			for (int i = 0; i < Items.Length; i++)
 			{
-				Debug.Log("index: " + i + ", name: " + ItemSlots[i].Name + ", Qty: " + ItemSlots[i].Quantity);
+				Debug.Log("index: " + i + ", name: " + Items[i].Name + ", Qty: " + Items[i].Quantity);
 			}
 		}
 	}

@@ -24,6 +24,8 @@ namespace MMCL.DTO
 		public string Explain { get { return m_vo.Explain; } }
 		// 所持数上限か
 		public bool IsFull { get { return (Quantity == MaxQuantity); } }
+		// 空スロットか
+		public bool IsEmpty { get { return (RowID == ItemMaster.rowIds.ID_000); } }
 
 		public string SpriteFilePath { get { return (SPRITE_PATH_HEADER + m_vo.SpriteName); } }
 
@@ -32,7 +34,8 @@ namespace MMCL.DTO
 		/// </summary>
 		public static void Create(ItemMaster.rowIds rowID, Action<ItemDTO> callback)
 		{
-			DataManager.I.GetItemDataInMaster(rowID, master => {
+			DataManager.I.GetItemDataInMaster(rowID, master =>
+			{
 				var vo = ItemVO.Create(rowID, master);
 				var dto = new ItemDTO();
 				dto.SetVO(vo);

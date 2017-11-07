@@ -8,8 +8,5 @@ namespace MMCL.VO
 	/// </summary>
 	public class InventoryVO
 	{
-		public int MaxSize { get; set; }
-
-		public ItemVO[] ItemSlots { get; set; }
 	}
 }
