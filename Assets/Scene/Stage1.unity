@@ -9737,12 +9737,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rowNames:
+  - ID_000
   - ID_001
   - ID_002
   - ID_003
   - ID_004
   - ID_005
   Rows:
+  - _Name: 
+    _Type: Item
+    _HP: 0
+    _ATK: 0
+    _DEF: 0
+    _Explain: 
+    _SpriteName: none
   - _Name: "\u3086\u3067\u305F\u307E\u3054"
     _Type: Item
     _HP: 10

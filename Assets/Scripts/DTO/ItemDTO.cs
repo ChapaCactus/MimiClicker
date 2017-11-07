@@ -21,23 +21,49 @@ namespace MMCL.DTO
 		public ItemCategory Category { get { return m_vo.Category; } }
 		public int MaxQuantity { get { return m_vo.MaxQuantity; } }
 		public int Quantity { get { return m_vo.Quantity; } }
-		public string Explain { get; private set; }
-
-		public string SpriteName { get; private set; }
+		public string Explain { get { return m_vo.Explain; } }
 		// 所持数上限か
 		public bool IsFull { get { return (Quantity == MaxQuantity); } }
 
-		public string SpriteFilePath { get { return (SPRITE_PATH_HEADER + SpriteName); } }
+		public string SpriteFilePath { get { return (SPRITE_PATH_HEADER + m_vo.SpriteName); } }
 
-		public void SetVO(ItemVO vo)
+		/// <summary>
+		/// ItemMasterIDからItemDTOを作成
+		/// </summary>
+		public static void Create(ItemMaster.rowIds identifier, Action<ItemDTO> callback)
+		{
+			DataManager.I.GetItemDataInMaster(identifier, master => {
+				var vo = ItemVO.Create(master);
+				var dto = new ItemDTO();
+				dto.SetVO(vo);
+
+				callback.Call(dto);
+			});
+		}
+
+		/// <summary>
+		/// ItemVOからItemDTOを作成
+		/// </summary>
+		public static void Create(ItemVO vo, Action<ItemDTO> callback)
+		{
+			var dto = new ItemDTO();
+			dto.SetVO(vo);
+
+			callback.Call(dto);
+		}
+
+		/// <summary>
+		/// 空アイテムDTOを作る
+		/// NOTE - 空スロットやダミーとして使う
+		/// </summary>
+		public static void CreateEmpty(Action<ItemDTO> callback)
+		{
+			ItemDTO.Create(ItemMaster.rowIds.ID_000, row => callback.Call(row));
+		}
+
+		private void SetVO(ItemVO vo)
 		{
 			m_vo = vo;
-
-			DataManager.I.GetItemDataInMaster(ItemMaster.rowIds.ID_001, (row) =>
-			{
-				Explain = row._Explain;
-				SpriteName = row._SpriteName;
-			});
 		}
 
 		public void Increment()

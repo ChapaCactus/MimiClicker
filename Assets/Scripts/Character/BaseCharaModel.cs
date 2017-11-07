@@ -88,9 +88,13 @@ public abstract class BaseCharaModel : MonoBehaviour
 	/// <param name="killedCharaVO">殺したキャラのデータ</param>
 	protected abstract void OnKilledTarget(StatusDTO killedCharaDTO);
 
+	protected abstract void DropItem();
+
 	private void Dead()
 	{
 		UIController.I.DeleteStatusPanelsContent(Status);
+
+		DropItem();
 
 		m_onDead();
 	}

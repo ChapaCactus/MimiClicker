@@ -146,7 +146,7 @@ public static class GlobalGameData
 		newData.ItemSlots = new ItemVO[24];
 		for (int i = 0; i < newData.MaxSize; i++)
 		{
-			newData.ItemSlots[i] = ItemVO.Create();
+			newData.ItemSlots[i] = new ItemVO();
 		}
 
 		return newData;

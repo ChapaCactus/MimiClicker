@@ -18,6 +18,7 @@ public class InventoryPanel : BaseInfoPanel
 
 	public override void UpdateUITexts()
 	{
+		UpdateContents();
 	}
 
 	/// <summary>
@@ -43,6 +44,20 @@ public class InventoryPanel : BaseInfoPanel
 		} else
 		{
 			UpdateUITexts();
+		}
+	}
+
+	/// <summary>
+	/// アイコンを更新
+	/// </summary>
+	private void UpdateContents()
+	{
+		var inventory = GetInventory();
+		for (int i = 0; i < m_itemIcons.Length; i++)
+		{
+			var inventoryItem = inventory.ItemSlots[i];
+			var icon = m_itemIcons[i];
+			icon.Setup(inventoryItem);
 		}
 	}
 

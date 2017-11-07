@@ -137,10 +137,10 @@ namespace Google2u
 	public class ItemMaster :  Google2uComponentBase, IGoogle2uDB
 	{
 		public enum rowIds {
-			ID_001, ID_002, ID_003, ID_004, ID_005
+			ID_000, ID_001, ID_002, ID_003, ID_004, ID_005
 		};
 		public string [] rowNames = {
-			"ID_001", "ID_002", "ID_003", "ID_004", "ID_005"
+			"ID_000", "ID_001", "ID_002", "ID_003", "ID_004", "ID_005"
 		};
 		public System.Collections.Generic.List<ItemMasterRow> Rows = new System.Collections.Generic.List<ItemMasterRow>();
 		public override void AddRowGeneric (System.Collections.Generic.List<string> input)

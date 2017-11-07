@@ -164,6 +164,19 @@ public class Enemy : BaseCharaModel
 	}
 
 	/// <summary>
+	/// この敵に設定されたアイテムをドロップする
+	/// </summary>
+	protected override void DropItem()
+	{
+		var dropID = ItemMaster.rowIds.ID_001;
+
+		ItemDTO.Create(dropID, dto =>
+		{
+			GlobalGameData.InventoryDTO.TryAddItem(dto, () => { }, () => { });
+		});
+	}
+
+	/// <summary>
 	/// エネミーマスターからステータスデータを作成
 	/// </summary>
 	private StatusVO CreateStatusVOFromMaster(int charaID, EnemyMasterRow master)

@@ -65,6 +65,8 @@ namespace MMCL.DTO
 		/// <param name="failure">追加失敗</param>
 		public void TryAddItem(ItemDTO item, Action success, Action failure)
 		{
+			Debug.Log("Adding Item Name: " + item.Name + ", Qty: " + item.Quantity);
+
 			var collectableSlotIndex = CheckCollectableSlot(item);
 			if (collectableSlotIndex != -1)
 			{
@@ -86,6 +88,8 @@ namespace MMCL.DTO
 					failure.Call();
 				}
 			}
+
+			Dump();
 		}
 
 		private void Add(int index, ItemDTO item, Action onComplete)
@@ -93,6 +97,7 @@ namespace MMCL.DTO
 			if (m_itemSlots[index] != null)
 			{
 				// NOTE - 既に存在するなら数をインクリメント
+				// NOTE - 所持上限数によって処理を変える必要あり
 				m_itemSlots[index].Increment();
 				onComplete.Call();
 			}
@@ -169,12 +174,21 @@ namespace MMCL.DTO
 
 			foreach (var item in items)
 			{
-				var dto = new ItemDTO();
-				dto.SetVO(item);
-				res.Add(dto);
+				ItemDTO.Create(item, dto => {
+					res.Add(dto);
+				});
 			}
 
 			callback(res.ToArray());
+		}
+
+		private void Dump()
+		{
+			Debug.Log("My Itemslots Dumping...");
+			for (int i = 0; i < ItemSlots.Length; i++)
+			{
+				Debug.Log("index: " + i + ", name: " + ItemSlots[i].Name + ", Qty: " + ItemSlots[i].Quantity);
+			}
 		}
 	}
 }

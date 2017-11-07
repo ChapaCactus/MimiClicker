@@ -127,4 +127,6 @@ public class Mimic : BaseCharaModel
 
 		m_currentState = State.Wait;
 	}
+
+	protected override void DropItem() { }
 }
