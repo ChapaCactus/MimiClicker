@@ -23,5 +23,14 @@ public class ItemIcon : MonoBehaviour
 	public void Setup(ItemDTO item)
 	{
 		m_quantityText.text = item.Quantity.ToString();
+
+		SetSprite(item.SpriteFilePath);
+	}
+
+	private void SetSprite(string path)
+	{
+		Debug.Log(path);
+		var sprite = Resources.Load<Sprite>(path);
+		m_itemImage.sprite = sprite;
 	}
 }

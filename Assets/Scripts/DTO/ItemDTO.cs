@@ -5,6 +5,8 @@ using MMCL.Enums;
 
 using Google2u;
 
+using UnityEngine;
+
 namespace MMCL.DTO
 {
 	[Serializable]
@@ -12,7 +14,7 @@ namespace MMCL.DTO
 	{
 		private ItemVO m_vo;
 
-		private const string SPRITE_PATH_HEADER = "";
+		private const string SPRITE_PATH_HEADER = "Images/Icon/Item/";
 
 		public ItemMaster.rowIds RowID { get { return m_vo.RowId; } }
 		public bool IsUnique { get { return m_vo.IsUnique; } }
