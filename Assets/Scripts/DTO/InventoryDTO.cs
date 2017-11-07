@@ -19,7 +19,7 @@ namespace MMCL.DTO
 		{
 			m_vo = vo;
 
-			CreateItemDTO(vo.ItemSlots, (dtos) =>
+			CreateItemDTOs(vo.ItemSlots, (dtos) =>
 			{
 				m_itemSlots = dtos;
 			});
@@ -148,12 +148,10 @@ namespace MMCL.DTO
 		/// <returns>The collectable slot.</returns>
 		private int CheckCollectableSlot(ItemDTO item)
 		{
-			var masterID = item.MasterID;
-
 			for (int index = 0; index < m_itemSlots.Length; index++)
 			{
 				var slot = m_itemSlots[index];
-				if (masterID == slot.MasterID)
+				if (item.RowID == slot.RowID)
 				{
 					// 同じアイテムIDで
 					if (!slot.IsFull)
@@ -168,7 +166,7 @@ namespace MMCL.DTO
 			return -1;
 		}
 
-		private void CreateItemDTO(ItemVO[] items, Action<ItemDTO[]> callback)
+		private void CreateItemDTOs(ItemVO[] items, Action<ItemDTO[]> callback)
 		{
 			var res = new List<ItemDTO>();
 

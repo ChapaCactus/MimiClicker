@@ -10,7 +10,7 @@ namespace MMCL.VO
 	public struct ItemVO
 	{
 		// ユニークアイテムか？
-		public int MasterID { get; set; }
+		public ItemMaster.rowIds RowId { get; set; }
 		public bool IsUnique { get; set; }
 		public string Name { get; set; }
 		public Rarity Rarity { get; set; }
@@ -20,10 +20,10 @@ namespace MMCL.VO
 		public string Explain { get; set; }
 		public string SpriteName { get; set; }
 
-		public static ItemVO Create(ItemMasterRow master)
+		public static ItemVO Create(ItemMaster.rowIds identifer, ItemMasterRow master)
 		{
 			var vo = new ItemVO();
-			vo.MasterID = 0;
+			vo.RowId = identifer;
 			vo.IsUnique = false;
 			vo.Name = master._Name;
 			vo.Rarity = Rarity.None;

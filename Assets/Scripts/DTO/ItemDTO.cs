@@ -14,7 +14,7 @@ namespace MMCL.DTO
 
 		private const string SPRITE_PATH_HEADER = "";
 
-		public int MasterID { get { return m_vo.MasterID; } }
+		public ItemMaster.rowIds RowID { get { return m_vo.RowId; } }
 		public bool IsUnique { get { return m_vo.IsUnique; } }
 		public string Name { get { return m_vo.Name; } }
 		public Rarity Rarity { get { return m_vo.Rarity; } }
@@ -30,10 +30,10 @@ namespace MMCL.DTO
 		/// <summary>
 		/// ItemMasterIDからItemDTOを作成
 		/// </summary>
-		public static void Create(ItemMaster.rowIds identifier, Action<ItemDTO> callback)
+		public static void Create(ItemMaster.rowIds rowID, Action<ItemDTO> callback)
 		{
-			DataManager.I.GetItemDataInMaster(identifier, master => {
-				var vo = ItemVO.Create(master);
+			DataManager.I.GetItemDataInMaster(rowID, master => {
+				var vo = ItemVO.Create(rowID, master);
 				var dto = new ItemDTO();
 				dto.SetVO(vo);
 
