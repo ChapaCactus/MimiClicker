@@ -42,7 +42,7 @@ namespace MMCL.DTO
 				var dto = new ItemDTO();
 				dto.SetVO(vo);
 
-				callback.Call(dto);
+				callback.SafeCall(dto);
 			});
 		}
 
@@ -54,7 +54,7 @@ namespace MMCL.DTO
 			var dto = new ItemDTO();
 			dto.SetVO(vo);
 
-			callback.Call(dto);
+			callback.SafeCall(dto);
 		}
 
 		/// <summary>
@@ -63,7 +63,7 @@ namespace MMCL.DTO
 		/// </summary>
 		public static void CreateEmpty(Action<ItemDTO> callback)
 		{
-			ItemDTO.Create(ItemMaster.rowIds.ID_000, row => callback.Call(row));
+			ItemDTO.Create(ItemMaster.rowIds.ID_000, row => callback.SafeCall(row));
 		}
 
 		private void SetVO(ItemVO vo)

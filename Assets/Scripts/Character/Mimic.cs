@@ -66,7 +66,7 @@ public class Mimic : BaseCharaModel
 	{
 		base.Damage(damage, onDiedThisChara);
 
-		m_onDamaged.Call(damage);
+		m_onDamaged.SafeCall(damage);
 	}
 
 	public void ChargeGold(Action<int> onEndCharge)

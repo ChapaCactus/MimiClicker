@@ -14,7 +14,7 @@ public class HealthBar : MonoBehaviour
 		var prefab = UIController.I.LoadHealbarPrefab();
 		var healthBar = Instantiate(prefab, parent);
 
-		callback.Call(healthBar);
+		callback.SafeCall(healthBar);
 	}
 
 	public void SetValue(int maxValue, int startValue)

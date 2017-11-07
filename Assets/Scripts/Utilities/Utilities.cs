@@ -61,9 +61,9 @@ public static class Utilities
 	}
 
 	/// <summary>
-	/// nullチェック付きAction呼び出し拡張クラス
+	/// nullチェック付きAction呼び出し拡張クラス(ジェネリック)
 	/// </summary>
-	public static void Call<T>(this Action<T> action, T arg)
+	public static void SafeCall<T>(this Action<T> action, T arg)
 	{
 		if (action != null)
 		{
@@ -76,7 +76,7 @@ public static class Utilities
 	/// <summary>
 	/// nullチェック付きAction呼び出し拡張クラス
 	/// </summary>
-	public static void Call(this Action action)
+	public static void SafeCall(this Action action)
 	{
 		if (action != null)
 		{

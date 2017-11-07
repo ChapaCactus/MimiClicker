@@ -97,7 +97,7 @@ public class EnemyStatusContent : MonoBehaviour
 		m_animationTarget.localPosition = new Vector2(fromX, 0);
 		m_animationTarget.DOLocalMoveX(toX, 1f)
 						 .SetEase(Ease.InExpo)
-						 .OnComplete(() => onComplete.Call());
+		                 .OnComplete(() => onComplete.SafeCall());
 	}
 
 	private void SetEnemyBG()

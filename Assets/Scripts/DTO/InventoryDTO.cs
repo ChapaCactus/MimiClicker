@@ -84,7 +84,7 @@ namespace MMCL.DTO
 				else
 				{
 					// NOTE - 同種アイテム所持しておらず、空きスロットも無いなら追加失敗
-					failure.Call();
+					failure.SafeCall();
 				}
 			}
 
@@ -98,13 +98,13 @@ namespace MMCL.DTO
 				// NOTE - 既に存在するなら数をインクリメント
 				// NOTE - 所持上限数によって処理を変える必要あり
 				Items[index].Increment();
-				onComplete.Call();
+				onComplete.SafeCall();
 			}
 			else
 			{
 				// NOTE - 存在しないなら新規追加
 				Items[index] = item;
-				onComplete.Call();
+				onComplete.SafeCall();
 			}
 		}
 
