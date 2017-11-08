@@ -42,15 +42,15 @@ public class GameManager : MonoBehaviour
 	{
 		yield return Load();
 
-		yield return CreateGameController();
+		UpdateUIContents();
 
-		yield return SceneIn();
+		yield return CreateGameController();
 
 		yield return CreateMainMimic();
 
-		yield return SetupEnemySpawner();
+		yield return SceneIn();
 
-		UpdateUIContents();
+		yield return SetupEnemySpawner();
 	}
 
 	private IEnumerator SceneIn()
