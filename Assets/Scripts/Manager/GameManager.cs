@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+using DarkTonic.MasterAudio;
+
 public class GameManager : MonoBehaviour
 {
 	private GameController m_gameController;
@@ -42,11 +44,29 @@ public class GameManager : MonoBehaviour
 
 		yield return CreateGameController();
 
+		yield return SceneIn();
+
 		yield return CreateMainMimic();
 
 		yield return SetupEnemySpawner();
 
 		UpdateUIContents();
+	}
+
+	private IEnumerator SceneIn()
+	{
+		var isPlaying = true;
+		var wait = new WaitWhile(() => isPlaying);
+
+		StageInAnimation.Create(UIController.I.GetMainCanvasRect().transform, anim =>
+		{
+			anim.Play("始まりの野原", () => {
+				isPlaying = false;
+				anim.Kill();
+			});
+		});
+
+		yield return wait;
 	}
 
 	private IEnumerator Load()
