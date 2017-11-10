@@ -21,6 +21,11 @@ public class UIController : SingletonMonoBehaviour<UIController>
 		m_uiManager.UpdateGoldText(gold);
 	}
 
+	public Canvas GetMainCanvas()
+	{
+		return m_uiManager.GetMainCanvas();
+	}
+
 	public RectTransform GetMainCanvasRect()
 	{
 		return m_uiManager.GetMainCanvasRect();

@@ -23,8 +23,10 @@ public class UIManager : MonoBehaviour
 		Map
 	}
 
-	// カメラ系
+	// Canvas
+	[SerializeField] private Canvas m_mainCanvas;
 	[SerializeField] private RectTransform m_mainCanvasRect;
+	// カメラ系
 	[SerializeField] private Camera m_mainCamera;
 	[SerializeField] private Camera m_uiCamera;
 	// 所持金表示
@@ -35,7 +37,7 @@ public class UIManager : MonoBehaviour
 	// 敵味方情報リストパネル
 	[SerializeField] private StatusPanels m_statusPanels;
 
-	// InfoPanels
+	// 情報パネル
 	[SerializeField] private InventoryPanel m_inventoryPanel;
 	[SerializeField] private AbilityPanel m_abilityPanel;
 	[SerializeField] private TrainingPanel m_trainingPanel;
@@ -144,6 +146,11 @@ public class UIManager : MonoBehaviour
 	public void DeleteStatusPanelsContent(StatusDTO dto)
 	{
 		m_statusPanels.DeleteContent(dto);
+	}
+
+	public Canvas GetMainCanvas()
+	{
+		return m_mainCanvas;
 	}
 
 	public RectTransform GetMainCanvasRect()
