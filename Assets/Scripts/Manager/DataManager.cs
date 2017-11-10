@@ -12,12 +12,20 @@ using Google2u;
 public class DataManager : SingletonMonoBehaviour<DataManager>
 {
 	// NOTE - G2Uは、勝手にInspectorから外れる事があるため注意
-	[SerializeField] private ItemMaster m_itemMaster;
-	[SerializeField] private EnemyMaster m_enemyMaster;
+	[SerializeField] GameObject m_google2uDatabase;
+
+	public ItemMaster ItemMaster { get; private set; }
+	public EnemyMaster EnemyMaster { get; private set; }
+
+	private void Awake()
+	{
+		ItemMaster = m_google2uDatabase.GetComponent<ItemMaster>();
+		EnemyMaster = m_google2uDatabase.GetComponent<EnemyMaster>();
+	}
 
 	public void GetItemDataInMaster(ItemMaster.rowIds identifier, Action<ItemMasterRow> callback)
 	{
-		var row = m_itemMaster.GetRow(identifier);
+		var row = ItemMaster.GetRow(identifier);
 		callback(row);
 	}
 
@@ -26,11 +34,11 @@ public class DataManager : SingletonMonoBehaviour<DataManager>
 	/// </summary>
 	public EnemyMasterRow GetEnemyDataInMaster(string identifier)
 	{
-		return m_enemyMaster.GetRow(identifier);
+		return EnemyMaster.GetRow(identifier);
 	}
 
 	public EnemyMasterRow GetEnemyDataInMaster(EnemyMaster.rowIds identifier)
 	{
-		return m_enemyMaster.GetRow(identifier);
+		return EnemyMaster.GetRow(identifier);
 	}
 }
