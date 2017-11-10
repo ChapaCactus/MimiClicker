@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GoldObject : MonoBehaviour
 {
-	private float m_duration;
+	public float LifeTime { get; private set; } = 0;
 	private Action m_onEndTimer;
 
 	private const string PREFAB_PATH = "Prefabs/GoldObject";
@@ -21,9 +21,9 @@ public class GoldObject : MonoBehaviour
 		return gold;
 	}
 
-	public void Setup(float duration, Action onEndTimer)
+	public void Setup(float lifeTime, Action onEndTimer)
 	{
-		m_duration = duration;
+		LifeTime = lifeTime;
 		m_onEndTimer = onEndTimer;
 	}
 
@@ -37,12 +37,12 @@ public class GoldObject : MonoBehaviour
 	/// </summary>
 	public void StartTimer()
 	{
-		StartCoroutine(TimerCoroutine(m_duration));
+		StartCoroutine(TimerCoroutine());
 	}
 
-	private IEnumerator TimerCoroutine(float duration)
+	private IEnumerator TimerCoroutine()
 	{
-		var waitDuration = new WaitForSeconds(duration);
+		var waitDuration = new WaitForSeconds(this.LifeTime);
 
 		yield return waitDuration;
 

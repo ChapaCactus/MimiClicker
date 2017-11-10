@@ -15,13 +15,8 @@ public static class GlobalGameData
 	// ユーザデータ
 	private static UserVO m_userVO = null;
 
-	// 所持品データ
-	private static InventoryDTO m_inventoryDTO = null;
-
-	private static readonly string USERDATA_KEY = "UserData";
-	private static readonly string INVENTORY_KEY = "Inventory";
-
-	public static InventoryDTO InventoryDTO { get { return m_inventoryDTO; } }
+	// 所持品
+	public static InventoryDTO InventoryDTO { get; private set; } = null;
 
 	// 所持金
 	public static int Gold
@@ -45,6 +40,9 @@ public static class GlobalGameData
 		}
 	}
 
+	private static readonly string USERDATA_KEY = "UserData";
+	private static readonly string INVENTORY_KEY = "Inventory";
+
 	/// <summary>
 	/// データセーブ
 	/// </summary>
@@ -54,7 +52,7 @@ public static class GlobalGameData
 		// ユーザデータセーブ
 		var dataObject = JsonUtility.ToJson(m_userVO);
 		ES2.Save(dataObject, USERDATA_KEY);
-		var inventoryObject = m_inventoryDTO.ConvertDataObject();
+		var inventoryObject = InventoryDTO.ConvertDataObject();
 		ES2.Save(inventoryObject, INVENTORY_KEY);
 		onComplete();
 	}
@@ -84,14 +82,14 @@ public static class GlobalGameData
 			var vo = JsonUtility.FromJson<InventoryVO>(dataObject);
 			var dto = new InventoryDTO();
 			dto.SetVO(vo);
-			m_inventoryDTO = dto;
+			InventoryDTO = dto;
 		}
 		else
 		{
 			var vo = GetNewInventoryVO();
 			var dto = new InventoryDTO();
 			dto.SetVO(vo);
-			m_inventoryDTO = dto;
+			InventoryDTO = dto;
 		}
 
 		onComplete();
