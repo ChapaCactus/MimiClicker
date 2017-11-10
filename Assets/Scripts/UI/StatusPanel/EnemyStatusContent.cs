@@ -9,18 +9,16 @@ using DG.Tweening;
 
 public class EnemyStatusContent : MonoBehaviour
 {
-	public int WorldID { get; private set; }
-
-	[SerializeField]
-	private Text m_nameText;
+	public int WorldID { get; private set; } = -1;
 
 	private HealthBar m_healthBar;
 
 	[SerializeField]
+	private Text m_nameText;
+	[SerializeField]
 	private Transform m_contentsParent;
 	[SerializeField]
 	private Transform m_animationTarget;
-
 	[SerializeField]
 	private Image m_backGroundImage;
 
