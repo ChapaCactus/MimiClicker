@@ -7,6 +7,8 @@ using UnityEngine;
 using MMCL.DTO;
 using MMCL.VO;
 
+using DarkTonic.MasterAudio;
+
 public class Mimic : BaseCharaModel
 {
 	public enum State
@@ -65,6 +67,8 @@ public class Mimic : BaseCharaModel
 	public override void Damage(int damage, Action<StatusDTO> onDiedThisChara)
 	{
 		base.Damage(damage, onDiedThisChara);
+
+
 
 		m_onDamaged.SafeCall(damage);
 	}
