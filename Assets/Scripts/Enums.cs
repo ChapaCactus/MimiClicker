@@ -17,4 +17,13 @@
 		Common,
 		Equipment,
 	}
+
+	public enum StatusType
+	{
+		None,
+		MaxHealth,
+		Health,
+		ATK,
+		DEF
+	}
 }
