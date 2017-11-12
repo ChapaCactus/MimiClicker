@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GoldObject : MonoBehaviour
 {
-	public float LifeTime { get; private set; } = 0;
+	public float LifeTime { get; private set; }
 	private Action m_onEndTimer;
 
 	private const string PREFAB_PATH = "Prefabs/GoldObject";

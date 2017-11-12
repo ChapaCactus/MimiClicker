@@ -9,7 +9,7 @@ using DG.Tweening;
 
 public class EnemyStatusContent : MonoBehaviour
 {
-	public int WorldID { get; private set; } = -1;
+	public int WorldID { get; private set; }
 
 	private HealthBar m_healthBar;
 

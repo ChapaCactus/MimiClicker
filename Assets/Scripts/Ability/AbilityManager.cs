@@ -8,7 +8,7 @@ namespace MMCL.Ability
 {
 	public class AbilityManager : MonoBehaviour
 	{
-		public BaseAbility[] AutoBuffAbilities { get; private set; } = null;
+		public BaseAbility[] AutoBuffAbilities { get; private set; }
 
 		/// <summary>
 		/// 自動発動アビリティの、それぞれのステータスに対する上昇量合計値を取得
@@ -35,8 +35,8 @@ namespace MMCL.Ability
 		/// </summary>
 		public class AutoBuffAmountsContainer
 		{
-			public Dictionary<StatusType, int> Values { get; private set; } = new Dictionary<StatusType, int>();
-			public Dictionary<StatusType, float> Rates { get; private set; } = new Dictionary<StatusType, float>();
+			public Dictionary<StatusType, int> Values { get; private set; }
+			public Dictionary<StatusType, float> Rates { get; private set; }
 
 			public static AutoBuffAmountsContainer Create()
 			{

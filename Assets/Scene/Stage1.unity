@@ -3396,7 +3396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e21dad52f7a644fc90128f8757a7476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_google2uDatabase: {fileID: 0}
+  m_google2uDatabase: {fileID: 1363101282}
 --- !u!4 &467868675
 Transform:
   m_ObjectHideFlags: 0
@@ -9845,6 +9845,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1363101285}
+  - component: {fileID: 1363101287}
+  - component: {fileID: 1363101286}
   - component: {fileID: 1363101284}
   - component: {fileID: 1363101283}
   m_Layer: 0
@@ -9855,6 +9857,137 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &1363101283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1363101282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8d44fa0dd2b14c338705fca133a8377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rowNames:
+  - ID_000
+  - ID_001
+  Rows:
+  - _Name: 
+    _TargetStatus: None
+    _Value: 0
+    _Rate: 0
+    _Explain: 
+    _SpriteName: archerSkill4
+  - _Name: "\u5185\u306A\u308B\u529B"
+    _TargetStatus: ATK
+    _Value: 1
+    _Rate: 0
+    _Explain: "\u653B\u6483\u529B\u3092\u9AD8\u3081\u307E\u3059"
+    _SpriteName: assassinSkill5
+--- !u!114 &1363101284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1363101282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29f3ac0413d354a3d8aef8799ee617c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rowNames:
+  - ID_001
+  - ID_002
+  Rows:
+  - _Name: "\u65B0\u305F\u306A\u9053"
+    _Items:
+    - Item_002
+    - Item_002
+    - Item_002
+    - Item_002
+    - Item_002
+    - Item_002
+    _RootA:
+    - ENEMY_001
+    - FREE
+    - ENEMY_001
+    - ENEMY_001
+    - ENEMY_001
+    _RootB:
+    - ENEMY_001
+    - FREE
+    - ENEMY_001
+    - ENEMY_001
+    - ENEMY_001
+    _RootC:
+    - ENEMY_001
+    - FREE
+    - ENEMY_001
+    - ENEMY_001
+    - ENEMY_001
+    _RootD:
+    - ENEMY_001
+    - FREE
+    - ENEMY_001
+    - ENEMY_001
+    - ENEMY_001
+    _RootE:
+    - ENEMY_001
+    - FREE
+    - ENEMY_001
+    - ENEMY_001
+    - ENEMY_001
+  - _Name: "\u59CB\u307E\u308A\u306E\u5E73\u539F"
+    _Items:
+    - Item_002
+    - Item_002
+    - Item_002
+    - Item_002
+    - Item_002
+    - Item_002
+    _RootA:
+    - ENEMY_001
+    - FREE
+    - ENEMY_001
+    - ENEMY_001
+    - ENEMY_001
+    _RootB:
+    - ENEMY_001
+    - FREE
+    - ENEMY_001
+    - ENEMY_001
+    - ENEMY_001
+    _RootC:
+    - ENEMY_001
+    - FREE
+    - ENEMY_001
+    - ENEMY_001
+    - ENEMY_001
+    _RootD:
+    - ENEMY_001
+    - FREE
+    - ENEMY_001
+    - ENEMY_001
+    - ENEMY_001
+    _RootE:
+    - ENEMY_001
+    - FREE
+    - ENEMY_001
+    - ENEMY_001
+    - ENEMY_001
+--- !u!4 &1363101285
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1363101282}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1363101286
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -9907,7 +10040,7 @@ MonoBehaviour:
     _GainExp: 5
     _Explain: "\u3077\u308B\u3077\u308B"
     _Model: xxx
---- !u!114 &1363101284
+--- !u!114 &1363101287
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -9968,19 +10101,6 @@ MonoBehaviour:
     _DEF: 0
     _Explain: "\u3064\u3088\u3044\u3001\u3051\u3093"
     _SpriteName: archerSkill4
---- !u!4 &1363101285
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1363101282}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1368495912
 Prefab:
   m_ObjectHideFlags: 0

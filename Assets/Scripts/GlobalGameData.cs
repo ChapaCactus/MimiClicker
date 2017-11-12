@@ -16,7 +16,7 @@ public static class GlobalGameData
 	private static UserVO m_userVO = null;
 
 	// 所持品
-	public static InventoryDTO InventoryDTO { get; private set; } = null;
+	public static InventoryDTO InventoryDTO { get; private set; }
 
 	// 所持金
 	public static int Gold
