@@ -12,7 +12,11 @@ namespace MMCL.VO
 		public bool isEnemy;
 		public string name;
 		public int gainExp;// 倒した時に得る経験値
+
 		public int level;
+		public int totalExp;
+		public int next;
+
 		public int maxHealth, health;
 		public int atk;
 		public int def;
@@ -27,7 +31,11 @@ namespace MMCL.VO
 			vo.isEnemy = false;
 			vo.name = "";
 			vo.gainExp = 0;
+
 			vo.level = 1;
+			vo.totalExp = 0;
+			vo.next = 0;
+
 			vo.maxHealth = 1;
 			vo.health = 1;
 			vo.atk = 1;

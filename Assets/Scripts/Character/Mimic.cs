@@ -17,15 +17,27 @@ public class Mimic : BaseCharaModel
 	public CharaState CurrentState { get; private set; }
 
 	private float m_attackTimer = 0;
+	private float m_deadTimer = 0;
 
 	private Action<int> m_onDamaged;
 
 	private const float ATTACK_TIMER_DEFAULT = 0.3f;
+	private const float DEAD_INTERVAL_TIME = 3f;
 	private const string PREFAB_PATH = "Prefabs/Character/Mimic";
 
 	private void Update()
 	{
-		if (CurrentState == CharaState.Dead) return;
+		if (CurrentState == CharaState.Dead)
+		{
+			m_deadTimer -= Time.deltaTime;
+			if(m_deadTimer <= 0)
+			{
+				// 復活
+				Init();
+			}
+
+			return;
+		}
 
 		if (CurrentState == CharaState.Battle)
 		{
@@ -102,6 +114,9 @@ public class Mimic : BaseCharaModel
 		CurrentState = CharaState.Wait;
 
 		// test
+		transform.localScale = Vector3.one;
+
+		// test
 		ChargePower = 1;
 		// test ダメージを受けたら戦闘状態にしておく
 		m_onDamaged = (damage) =>
@@ -117,8 +132,10 @@ public class Mimic : BaseCharaModel
 
 	protected override void Dead()
 	{
+		m_deadTimer = DEAD_INTERVAL_TIME;
 		CurrentState = CharaState.Dead;
 
+		// test
 		transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
 	}
 
