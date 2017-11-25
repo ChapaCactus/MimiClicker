@@ -105,8 +105,8 @@ public class Mimic : BaseCharaModel
 
 		// test
 		vo.name = "ミミックちゃん";
-		vo.maxHealth = 5;
-		vo.health = 5;
+		vo.maxHealth = 20;
+		vo.health = 20;
 
 		Status = new StatusDTO();
 		Status.SetVO(vo);
