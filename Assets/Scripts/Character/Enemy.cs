@@ -104,7 +104,8 @@ public class Enemy : BaseCharaModel
 			if (m_currentState == State.MoveEnd)
 			{
 				// 移動が終わった時
-				if (GameController.I.GetMainMimic() != null)
+				var mimic = GameController.I.GetMainMimic();
+				if (mimic != null && mimic.CurrentState != CharaState.Dead)
 				{
 					// ミミックが居るなら
 					CreateFukidashi(15, "!", m_onEndMove);

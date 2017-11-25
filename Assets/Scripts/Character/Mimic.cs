@@ -13,7 +13,8 @@ public class Mimic : BaseCharaModel
 {
 	public int ChargePower { get; private set; }
 
-	private CharaState m_currentState = CharaState.None;
+	[SerializeField]
+	public CharaState CurrentState { get; private set; }
 
 	private float m_attackTimer = 0;
 
@@ -24,9 +25,9 @@ public class Mimic : BaseCharaModel
 
 	private void Update()
 	{
-		if (m_currentState == CharaState.Dead) return;
+		if (CurrentState == CharaState.Dead) return;
 
-		if (m_currentState == CharaState.Battle)
+		if (CurrentState == CharaState.Battle)
 		{
 			m_attackTimer -= Time.deltaTime;
 
@@ -92,20 +93,23 @@ public class Mimic : BaseCharaModel
 
 		// test
 		vo.name = "ミミックちゃん";
-		vo.maxHealth = 10;
-		vo.health = 10;
+		vo.maxHealth = 5;
+		vo.health = 5;
 
 		Status = new StatusDTO();
 		Status.SetVO(vo);
 
-		m_currentState = CharaState.Wait;
+		CurrentState = CharaState.Wait;
 
 		// test
 		ChargePower = 1;
 		// test ダメージを受けたら戦闘状態にしておく
 		m_onDamaged = (damage) =>
 		{
-			m_currentState = CharaState.Battle;
+			if (CurrentState != CharaState.Dead)
+			{
+				CurrentState = CharaState.Battle;
+			}
 		};
 
 		base.UpdateStatusPanel();
@@ -113,7 +117,7 @@ public class Mimic : BaseCharaModel
 
 	protected override void Dead()
 	{
-		m_currentState = CharaState.Dead;
+		CurrentState = CharaState.Dead;
 
 		transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
 	}
@@ -127,7 +131,7 @@ public class Mimic : BaseCharaModel
 	{
 		Debug.Log(targetStatus.Name + "を倒した！！ 戦闘に勝利した！！");
 
-		m_currentState = CharaState.Wait;
+		CurrentState = CharaState.Wait;
 	}
 
 	protected override void DropItem() { }
