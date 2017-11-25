@@ -11,17 +11,9 @@ using DarkTonic.MasterAudio;
 
 public class Mimic : BaseCharaModel
 {
-	public enum State
-	{
-		None,
-		Wait,
-		Battle,
-		Think
-	}
-
 	public int ChargePower { get; private set; }
 
-	private State m_currentState = State.None;
+	private CharaState m_currentState = CharaState.None;
 
 	private float m_attackTimer = 0;
 
@@ -30,20 +22,11 @@ public class Mimic : BaseCharaModel
 	private const float ATTACK_TIMER_DEFAULT = 0.3f;
 	private const string PREFAB_PATH = "Prefabs/Character/Mimic";
 
-	private void Awake()
-	{
-		// test
-		ChargePower = 1;
-		// test ダメージを受けたら戦闘状態にしておく
-		m_onDamaged = (damage) =>
-		{
-			m_currentState = State.Battle;
-		};
-	}
-
 	private void Update()
 	{
-		if (m_currentState == State.Battle)
+		if (m_currentState == CharaState.Dead) return;
+
+		if (m_currentState == CharaState.Battle)
 		{
 			m_attackTimer -= Time.deltaTime;
 
@@ -67,8 +50,6 @@ public class Mimic : BaseCharaModel
 	public override void Damage(int damage, Action<StatusDTO> onDiedThisChara)
 	{
 		base.Damage(damage, onDiedThisChara);
-
-
 
 		m_onDamaged.SafeCall(damage);
 	}
@@ -117,7 +98,24 @@ public class Mimic : BaseCharaModel
 		Status = new StatusDTO();
 		Status.SetVO(vo);
 
+		m_currentState = CharaState.Wait;
+
+		// test
+		ChargePower = 1;
+		// test ダメージを受けたら戦闘状態にしておく
+		m_onDamaged = (damage) =>
+		{
+			m_currentState = CharaState.Battle;
+		};
+
 		base.UpdateStatusPanel();
+	}
+
+	protected override void Dead()
+	{
+		m_currentState = CharaState.Dead;
+
+		transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
 	}
 
 	protected override BaseCharaModel GetTarget()
@@ -125,11 +123,11 @@ public class Mimic : BaseCharaModel
 		return GameController.I.GetEnemy();
 	}
 
-	protected override void OnKilledTarget(StatusDTO killedCharaDTO)
+	protected override void OnKilledTarget(StatusDTO targetStatus)
 	{
-		Debug.Log(killedCharaDTO.Name + "を倒した！！ 戦闘に勝利した！！");
+		Debug.Log(targetStatus.Name + "を倒した！！ 戦闘に勝利した！！");
 
-		m_currentState = State.Wait;
+		m_currentState = CharaState.Wait;
 	}
 
 	protected override void DropItem() { }

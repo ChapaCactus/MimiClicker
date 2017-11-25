@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEngine.Assertions;
 
 using MMCL.DTO;
 
@@ -17,6 +18,10 @@ public class StatusPanels : MonoBehaviour
 
 	public void SetData(StatusDTO dto)
 	{
+		Assert.IsNotNull(dto);
+
+		if (dto == null) return;
+
 		if(m_statusContentDic.ContainsKey(dto.WorldID))
 		{
 			// 登録済の場合は更新
@@ -42,7 +47,7 @@ public class StatusPanels : MonoBehaviour
 			var content = m_statusContentDic[dto.WorldID];
 			content.MoveOut(dto.IsEnemy, () => {
 				Destroy(content.gameObject);
-				m_statusContentDic[dto.WorldID] = null;
+				m_statusContentDic.Remove(dto.WorldID);
 			});
 		} else
 		{

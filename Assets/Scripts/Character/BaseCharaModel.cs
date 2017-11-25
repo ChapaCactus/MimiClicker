@@ -10,12 +10,26 @@ using MMCL.DTO;
 
 public abstract class BaseCharaModel : MonoBehaviour
 {
+	public enum CharaState
+	{
+		None,
+		Wait,
+		Battle,
+		Think,
+		Dead
+	}
+
 	public StatusDTO Status { get; protected set; }
 
 	private Action m_onDead;
 
 	// アイテムドロップの開始点
 	[SerializeField] private Transform m_itemDropStartPos;
+
+	public void Setup()
+	{
+		
+	}
 
 	public void SetDeadCallback(Action onDead)
 	{
@@ -42,7 +56,7 @@ public abstract class BaseCharaModel : MonoBehaviour
 	/// ダメージを受ける
 	/// </summary>
 	/// <param name="onDiedThisChara">このダメージで死亡したか、その場合死亡したキャラデータを返す</param>
-	public virtual void Damage(int damage, Action<StatusDTO> onDiedThisChara)
+	public virtual void Damage(int damage, Action<StatusDTO> onDiedThisChara = null)
 	{
 		if (Status.Health >= 1)
 		{
@@ -53,7 +67,7 @@ public abstract class BaseCharaModel : MonoBehaviour
 			{
 				// 死亡処理
 				Dead();
-				onDiedThisChara(Status);
+				onDiedThisChara.SafeCall(Status);
 			}
 		}
 	}
@@ -90,7 +104,7 @@ public abstract class BaseCharaModel : MonoBehaviour
 
 	protected abstract void DropItem();
 
-	private void Dead()
+	protected virtual void Dead()
 	{
 		UIController.I.DeleteStatusPanelsContent(Status);
 
