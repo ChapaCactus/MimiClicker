@@ -17,10 +17,14 @@ public class DataManager : SingletonMonoBehaviour<DataManager>
 	public ItemMaster ItemMaster { get; private set; }
 	public EnemyMaster EnemyMaster { get; private set; }
 
+	public bool HasSaveData { get; private set; }
+
 	private void Awake()
 	{
 		ItemMaster = m_google2uDatabase.GetComponent<ItemMaster>();
 		EnemyMaster = m_google2uDatabase.GetComponent<EnemyMaster>();
+
+		CheckSaveData();
 	}
 
 	public void GetItemDataInMaster(ItemMaster.rowIds identifier, Action<ItemMasterRow> callback)
@@ -40,5 +44,10 @@ public class DataManager : SingletonMonoBehaviour<DataManager>
 	public EnemyMasterRow GetEnemyDataInMaster(EnemyMaster.rowIds identifier)
 	{
 		return EnemyMaster.GetRow(identifier);
+	}
+
+	private void CheckSaveData()
+	{
+		HasSaveData = true;
 	}
 }
