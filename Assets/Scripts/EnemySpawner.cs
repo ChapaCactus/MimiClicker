@@ -57,7 +57,7 @@ public class EnemySpawner : MonoBehaviour
 		enemy.Setup(onEndMove, endAway);
 		enemy.SetDeadCallback(onDead);
 		// 敵をセット
-		GameController.I.SetEnemy(enemy);
+		BattleManager.SetEnemy(enemy);
 		// 移動開始
 		enemy.Move(m_enemySpawnPos.position, m_enemyGoalPos.position);
 	}

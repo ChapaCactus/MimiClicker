@@ -19,9 +19,6 @@ public class GameManager : MonoBehaviour
 
 	public Mimic MainMimic { get; private set; }
 
-	// 出現している敵
-	public Enemy Enemy { get; set; }
-
 	private void Awake()
 	{
 		StartCoroutine(Setup());
@@ -29,8 +26,7 @@ public class GameManager : MonoBehaviour
 
 	public void KillEnemy()
 	{
-		Destroy(Enemy.gameObject);
-		Enemy = null;
+		BattleManager.RemoveEnemy();
 	}
 
 	private IEnumerator Setup()

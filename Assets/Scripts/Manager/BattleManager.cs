@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
+using UnityEngine;
+
 using MMCL.Enums;
 
 using DarkTonic.MasterAudio;
@@ -8,6 +10,9 @@ using DarkTonic.MasterAudio;
 public static class BattleManager
 {
 	public static BattleState BattleState { get; private set; }
+
+	public static Mimic Mimic { get { return GameController.I.GetMainMimic(); } }
+	public static Enemy Enemy { get; private set; }
 
 	private static readonly string FIELD_BGM = "rpg_12_loop";
 	private static readonly string BATTLE_BGM = "battle_03_loop";
@@ -20,6 +25,17 @@ public static class BattleManager
 	public static void EndBattle()
 	{
 		ChangeState(BattleState.Not);
+	}
+
+	public static void SetEnemy(Enemy enemy)
+	{
+		Enemy = enemy;
+	}
+
+	public static void RemoveEnemy()
+	{
+		GameObject.Destroy(BattleManager.Enemy.gameObject);
+		BattleManager.Enemy = null;
 	}
 
 	private static void ChangeState(BattleState next)

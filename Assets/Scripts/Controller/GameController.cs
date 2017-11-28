@@ -44,19 +44,11 @@ public class GameController : SingletonMonoBehaviour<GameController>
 	}
 
 	/// <summary>
-	/// 敵をセット
-	/// </summary>
-	public void SetEnemy(Enemy enemy)
-	{
-		m_gameManager.Enemy = enemy;
-	}
-
-	/// <summary>
 	/// 敵を取得
 	/// </summary>
 	public Enemy GetEnemy()
 	{
-		return m_gameManager.Enemy;
+		return BattleManager.Enemy;
 	}
 
 	/// <summary>
