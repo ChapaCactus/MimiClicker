@@ -26,4 +26,10 @@
 		ATK,
 		DEF
 	}
+
+	public enum BattleState
+	{
+		None,
+		Battle,
+	}
 }
