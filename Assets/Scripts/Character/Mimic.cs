@@ -13,7 +13,6 @@ public class Mimic : BaseCharaModel
 {
 	public int ChargePower { get; private set; }
 
-	[SerializeField]
 	public CharaState CurrentState { get; private set; }
 
 	private float m_attackTimer = 0;
@@ -111,7 +110,7 @@ public class Mimic : BaseCharaModel
 		Status = new StatusDTO();
 		Status.SetVO(vo);
 
-		CurrentState = CharaState.Wait;
+		ChangeState(CharaState.Wait);
 
 		// test
 		transform.localScale = Vector3.one;
@@ -123,17 +122,38 @@ public class Mimic : BaseCharaModel
 		{
 			if (CurrentState != CharaState.Dead)
 			{
-				CurrentState = CharaState.Battle;
+				ChangeState(CharaState.Battle);
 			}
 		};
 
 		base.UpdateStatusPanel();
 	}
 
+	private void ChangeState(CharaState next)
+	{
+		if (CurrentState == next) return;
+
+		CurrentState = next;
+		OnStateChanged();
+	}
+
+	private void OnStateChanged()
+	{
+		switch(CurrentState)
+		{
+			case CharaState.Battle:
+				BattleManager.StartBattle();
+				break;
+			default:
+				BattleManager.EndBattle();
+				break;
+		}
+	}
+
 	protected override void Dead()
 	{
 		m_deadTimer = DEAD_INTERVAL_TIME;
-		CurrentState = CharaState.Dead;
+		ChangeState(CharaState.Dead);
 
 		// test
 		transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
@@ -148,7 +168,7 @@ public class Mimic : BaseCharaModel
 	{
 		Debug.Log(targetStatus.Name + "を倒した！！ 戦闘に勝利した！！");
 
-		CurrentState = CharaState.Wait;
+		ChangeState(CharaState.Wait);
 	}
 
 	protected override void DropItem() { }

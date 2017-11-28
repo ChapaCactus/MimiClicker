@@ -9,6 +9,9 @@ public static class BattleManager
 {
 	public static BattleState BattleState { get; private set; }
 
+	private static readonly string FIELD_BGM = "rpg_12_loop";
+	private static readonly string BATTLE_BGM = "battle_03_loop";
+
 	public static void StartBattle()
 	{
 		ChangeState(BattleState.Battle);
@@ -16,7 +19,7 @@ public static class BattleManager
 
 	public static void EndBattle()
 	{
-		ChangeState(BattleState.None);
+		ChangeState(BattleState.Not);
 	}
 
 	private static void ChangeState(BattleState next)
@@ -31,11 +34,13 @@ public static class BattleManager
 	{
 		switch(BattleState)
 		{
-			case BattleState.None:
-				MasterAudio.PlaySound("rpg_12_loop", 1, null, 0.5f);
+			case BattleState.Not:
+				MasterAudio.StopAllOfSound(BATTLE_BGM);
+				MasterAudio.PlaySound(FIELD_BGM, 0.7f, null, 0.5f);
 				break;
 			case BattleState.Battle:
-				MasterAudio.PlaySound("battle_03_loop", 1, null, 0.5f);
+				MasterAudio.StopAllOfSound(FIELD_BGM);
+				MasterAudio.PlaySound(BATTLE_BGM, 0.7f, null, 0.5f);
 				break;
 		}
 	}

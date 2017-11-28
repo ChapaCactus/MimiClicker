@@ -43,12 +43,14 @@ public class GameManager : MonoBehaviour
 
 		yield return CreateMainMimic();
 
+		yield return PrepareSceneIn();
+
 		yield return SceneIn();
 
 		yield return SetupEnemySpawner();
 	}
 
-	private IEnumerator SceneIn()
+	private IEnumerator PrepareSceneIn()
 	{
 		var isPlaying = true;
 		var wait = new WaitWhile(() => isPlaying);
@@ -62,6 +64,13 @@ public class GameManager : MonoBehaviour
 		});
 
 		yield return wait;
+	}
+
+	private IEnumerator SceneIn()
+	{
+		BattleManager.EndBattle();
+
+		yield return null;
 	}
 
 	private IEnumerator Load()

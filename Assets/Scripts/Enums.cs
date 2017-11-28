@@ -30,6 +30,7 @@
 	public enum BattleState
 	{
 		None,
+		Not,
 		Battle,
 	}
 }
