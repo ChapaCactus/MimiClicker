@@ -9,8 +9,6 @@ using DarkTonic.MasterAudio;
 public class GameManager : MonoBehaviour
 {
 	private GameController m_gameController;
-	// 基本操作するミミック
-	[SerializeField] private Mimic m_mainMimic;
 	// サブミミック
 	[SerializeField] private Mimic[] m_subMimics;
 
@@ -19,17 +17,14 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] private UIManager m_uiManager;
 
+	public Mimic MainMimic { get; private set; }
+
 	// 出現している敵
 	public Enemy Enemy { get; set; }
 
 	private void Awake()
 	{
 		StartCoroutine(Setup());
-	}
-
-	public Mimic GetMainMimic()
-	{
-		return m_mainMimic;
 	}
 
 	public void KillEnemy()
@@ -85,11 +80,11 @@ public class GameManager : MonoBehaviour
 
 	private IEnumerator CreateMainMimic()
 	{
-		m_mainMimic = Mimic.Create();
-		m_mainMimic.SetDeadCallback(() =>
+		MainMimic = Mimic.Create();
+		MainMimic.SetDeadCallback(() =>
 		{
-			Destroy(m_mainMimic.gameObject);
-			m_mainMimic = null;
+			Destroy(MainMimic.gameObject);
+			MainMimic = null;
 		});
 
 		yield return null;
@@ -131,9 +126,9 @@ public class GameManager : MonoBehaviour
 	/// </summary>
 	private void OnTap()
 	{
-		if (m_mainMimic != null)
+		if (MainMimic != null)
 		{
-			m_mainMimic.ChargeGold((charge) => GainGold(charge));
+			MainMimic.ChargeGold((charge) => GainGold(charge));
 		}
 	}
 

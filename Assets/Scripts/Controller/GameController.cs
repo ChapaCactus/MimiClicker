@@ -40,7 +40,7 @@ public class GameController : SingletonMonoBehaviour<GameController>
 
 	public Mimic GetMainMimic()
 	{
-		return m_gameManager.GetMainMimic();
+		return m_gameManager.MainMimic;
 	}
 
 	/// <summary>
